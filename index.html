@@ -7,13 +7,11 @@
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Scroll snap container for whole page */
     body {
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
       height: 100vh;
     }
-
     section {
       scroll-snap-align: start;
       height: 100vh;
@@ -24,120 +22,262 @@
       padding: 2rem;
       position: relative;
     }
-
     .section-title {
       font-size: 3rem;
-      color: #c2185b; /* Example fuchsia tone */
+      color: #c2185b;
       margin-bottom: 1rem;
     }
-
-    .image-wheel {
+    .horizontal-flex {
       display: flex;
-      overflow-x: auto;
-      gap: 1rem;
-      width: 80%;
-      padding: 1rem;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
-
     .image-wheel img {
-      width: 300px;
-      height: 400px;
+      width: 250px;
+      height: 350px;
       object-fit: cover;
       border-radius: 1rem;
     }
-
-    .text-card {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 2rem;
-      max-width: 800px;
+    .text-card, .donation-board, .invitation-card {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 1.5rem;
       border-radius: 1rem;
-      background-image: url('assets/images/StoryBackgroundPlaceholder.jpg');
-      background-size: cover;
-      background-position: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-
-    .donation-links a, .guest-links a {
-      display: block;
-      margin: 0.5rem 0;
-      font-size: 1.2rem;
-      color: #880e4f;
-    }
-
     .qr-section img {
-      width: 300px;
-      height: 300px;
+      width: 250px;
+      height: 250px;
     }
-
     .countdown-bar {
-      margin-top: 2rem;
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #4a148c;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .horizontal-flex {
+        flex-direction: column;
+      }
+      .image-wheel img, .qr-section img {
+        width: 90%;
+        height: auto;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Section 1: Our Story -->
-  <section id="our-story" style="background-color: #fce4ec;">
-    <h1 class="section-title">Our Story</h1>
+<section id="our-story" style="display:flex; flex-direction:column; align-items:center; gap:2rem;">
 
-    <!-- Image Wheel -->
-    <div class="image-wheel">
-      <img src="assets/images/PH1.jpg" alt="Personal Photo 1">
-      <img src="assets/images/PH2.jpg" alt="Personal Photo 2">
-      <img src="assets/images/PH3.jpg" alt="Personal Photo 3">
-      <img src="assets/images/PH4.jpg" alt="Personal Photo 4">
+  <!-- Título fora do cartão rosa -->
+  <h1 class="section-title" style="text-align:center;">Our Story</h1>
+
+  <div class="horizontal-flex" style="align-items:flex-start;">
+
+<!-- Pink Card Carousel with flores2.png background -->
+<div style="
+  background-image: url('assets/images/flores2.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 60px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  width: 600px;
+  min-width: 300px;
+  position: relative;
+">
+
+  <div id="carousel-container" style="
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  ">
+    <!-- Left Image -->
+    <img id="left-img" style="
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: 125px;
+      left: 20px;
+      filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
+      border-radius: 30px;
+      transition: all 0.5s;
+      z-index: 1;
+    ">
+
+    <!-- Right Image -->
+    <img id="right-img" style="
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: 125px;
+      right: 20px;
+      filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
+      border-radius: 30px;
+      transition: all 0.5s;
+      z-index: 1;
+    ">
+
+    <!-- Center Image -->
+    <img id="center-img" style="
+      position: relative;
+      width: 300px;
+      height: 300px;
+      filter: drop-shadow(0 31px 10px rgba(0,0,0,0.5));
+      border-radius: 30px;
+      transition: all 0.5s ease;
+      z-index: 2;
+    ">
+
+
+    <!-- Navigation Buttons -->
+    <button onclick="prevImage()" style="
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 3;
+    ">❮</button>
+
+    <button onclick="nextImage()" style="
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border-radius: 10px;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 3;
+    ">❯</button>
+  </div>
+</div>
+
+
+    <!-- Text Card (Right) -->
+    <div class="text-card" style="max-width:500px;">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id odio dolor. Etiam auctor, urna pretium pulvinar porta, odio lectus imperdiet arcu...</p>
     </div>
 
-    <!-- Text Card -->
-    <div class="text-card">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a augue sed erat lacinia sodales. Praesent quis velit non justo accumsan dapibus.</p>
-    </div>
+  </div>
+</section>
 
-    <!-- Background Music -->
-    <audio autoplay loop>
-      <source src="assets/audio/A_Thousand_Years.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </section>
+<style>
+  @media (max-width: 768px) {
+    #our-story .horizontal-flex {
+      flex-direction: column;
+      align-items: center;
+    }
+    #carousel-container {
+      height: auto !important;
+    }
+    #center-img {
+      width: 90% !important;
+      height: auto !important;
+    }
+    #left-img, #right-img {
+      display: none;
+    }
+  }
+</style>
 
-  <!-- Section 2: Thank you and Donations -->
+<script>
+  const images = ["PH1.jpg", "PH2.jpg", "PH3.jpg", "PH4.jpg"];
+  let index = 0;
+  let autoPlayInterval = null;
+
+  function updateCarousel() {
+    const left = document.getElementById("left-img");
+    const center = document.getElementById("center-img");
+    const right = document.getElementById("right-img");
+
+    // Adiciona animação de fade/zoom
+    center.style.opacity = "0";
+    center.style.transform = "scale(0.95)";
+    setTimeout(() => {
+      left.src = "assets/images/" + images[(index - 1 + images.length) % images.length];
+      center.src = "assets/images/" + images[index];
+      right.src = "assets/images/" + images[(index + 1) % images.length];
+
+      center.style.opacity = "1";
+      center.style.transform = "scale(1)";
+    }, 150);  // Pequeno atraso para dar o efeito
+  }
+
+  function nextImage() {
+    index = (index + 1) % images.length;
+    updateCarousel();
+  }
+
+  function prevImage() {
+    index = (index - 1 + images.length) % images.length;
+    updateCarousel();
+  }
+
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextImage, 4000);  // Troca a cada 4 segundos
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+
+  window.onload = function() {
+    updateCarousel();
+    startAutoPlay();
+  };
+</script>
+
+
+
+
+
+  <!-- Section 2: Thank You and Donations -->
   <section id="donations" style="background-color: #f3e5f5;">
-    <h1 class="section-title">Thank you and Donations</h1>
-
-    <!-- Donation Links -->
-    <div class="donation-links">
-      <a href="https://paypal.com/example" target="_blank">Help with our honeymoon - PayPal</a>
-      <a href="https://picpay.me/example" target="_blank">Contribute via PicPay</a>
-      <a href="https://example.com" target="_blank">Gift Registry</a>
+    <h1 class="section-title">Faça parte com sua ajuda</h1>
+    <div class="horizontal-flex">
+      <div class="donation-board">
+        <a href="https://paypal.com/example" target="_blank">Help with our honeymoon - PayPal</a><br>
+        <a href="https://picpay.me/example" target="_blank">Contribute via PicPay</a><br>
+        <a href="https://example.com" target="_blank">Gift Registry</a>
+      </div>
+      <div class="qr-section">
+        <img src="assets/images/QRCode.png" alt="Donation QR Code">
+        <p>Toda ajuda é recebida com amor ❤️</p>
+      </div>
     </div>
-
-    <!-- QR Code -->
-    <div class="qr-section">
-      <img src="assets/images/QRCode.png" alt="Donation QR Code">
-      <p>Scan this QR to send any value you wish to help us!</p>
-    </div>
-
-    <!-- Ambient Audio -->
-    <audio autoplay loop>
-      <source src="assets/audio/Marry_Me_Bella.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
   </section>
 
   <!-- Section 3: Invites and Guest Norms -->
   <section id="invites" style="background-color: #fce4ec;">
     <h1 class="section-title">Invites and Guest Norms</h1>
 
-    <!-- Instagram Hotel Link -->
+    <!-- Countdown comes first -->
+    <div class="countdown-bar" id="countdown">
+      Wedding Countdown: <span id="days">0</span>d <span id="hours">0</span>h <span id="minutes">0</span>m <span id="seconds">0</span>s
+    </div>
+
+    <!-- Instagram and Invitation -->
     <div class="guest-links">
       <a href="https://instagram.com/HotelWeddingVenue" target="_blank">Venue Instagram Page</a>
     </div>
 
-    <!-- Invitation Card -->
-    <div class="text-card">
+    <div class="invitation-card">
       <h2>Wedding Invitation</h2>
       <p>Date: 27/12/2025</p>
       <p>Location: Beautiful Garden Hotel, Rio de Janeiro</p>
@@ -145,33 +285,68 @@
       <p>Dress code: Formal Summer</p>
       <a href="https://forms.gle/RSVPFormExample" target="_blank">Click here to RSVP</a>
     </div>
-
-    <!-- Countdown -->
-    <div class="countdown-bar" id="countdown">
-      Wedding Countdown: <span id="days">0</span> days left!
-    </div>
-  
-    <!-- Ambient Audio -->
-    <audio autoplay loop>
-      <source src="assets/audio/Turning_Page.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-
   </section>
 
-  <script>
-    // Simple JS countdown for wedding day
-    const weddingDate = new Date("2025-12-27T00:00:00").getTime();
+  <!-- Background Music -->
+  <audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" loop></audio>
+  <audio id="donation-audio" src="assets/audio/Marry_Me_Bella.mp3" loop></audio>
+  <audio id="invites-audio" src="assets/audio/Turning_Page.mp3" loop></audio>
 
+  <script>
+    // Countdown Timer
+    const weddingDate = new Date("2025-12-27T16:00:00").getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = weddingDate - now;
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "It's wedding time!";
+        return;
+      }
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      document.getElementById("days").innerText = days > 0 ? days : 0;
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Section-based Audio Control
+    const audios = {
+      "our-story": document.getElementById('story-audio'),
+      "donations": document.getElementById('donation-audio'),
+      "invites": document.getElementById('invites-audio')
+    };
+    const sections = document.querySelectorAll("section");
+
+    function pauseAllAudio() {
+      Object.values(audios).forEach(audio => audio.pause());
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 86400000); // Update once per day
+    function playAudioFor(sectionId) {
+      pauseAllAudio();
+      const audio = audios[sectionId];
+      if (audio) {
+        audio.muted = false;
+        audio.play().catch(() => {});
+      }
+    }
+
+    document.addEventListener("scroll", () => {
+      let activeSection = "";
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+          activeSection = section.id;
+        }
+      });
+      playAudioFor(activeSection);
+    });
+
+    window.onload = () => playAudioFor("our-story");
   </script>
 
 </body>
