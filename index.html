@@ -1,26 +1,178 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="site-desktop">
-      <div class="overlap-wrapper">
-        <div class="overlap">
-          <img class="flores" src="assets\images\flores1.png" />
-          <img class="casal" src="assets\images\Casal2.png" />
-          <img class="img" src="assets\images\Casal1.png" />
-          <div class="frame">
-            <div class="overlap-group">
-              <img class="flores-2" src="assets\images\flores2.png" /> <img class="QR-code" src="assets\images\QRCode.png" />
-            </div>
-          </div>
-          <p class="text-wrapper">Casamento da Elaine e do Filipe</p>
-        </div>
-      </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding of Elaine & Filipe</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Scroll snap container for whole page */
+    body {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100vh;
+    }
+
+    section {
+      scroll-snap-align: start;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      color: #c2185b; /* Example fuchsia tone */
+      margin-bottom: 1rem;
+    }
+
+    .image-wheel {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      width: 80%;
+      padding: 1rem;
+    }
+
+    .image-wheel img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    .text-card {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      max-width: 800px;
+      border-radius: 1rem;
+      background-image: url('assets/images/StoryBackgroundPlaceholder.jpg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .donation-links a, .guest-links a {
+      display: block;
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      color: #880e4f;
+    }
+
+    .qr-section img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .countdown-bar {
+      margin-top: 2rem;
+      font-size: 2rem;
+      color: #4a148c;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Section 1: Our Story -->
+  <section id="our-story" style="background-color: #fce4ec;">
+    <h1 class="section-title">Our Story</h1>
+
+    <!-- Image Wheel -->
+    <div class="image-wheel">
+      <img src="assets/images/PH1.jpg" alt="Personal Photo 1">
+      <img src="assets/images/PH2.jpg" alt="Personal Photo 2">
+      <img src="assets/images/PH3.jpg" alt="Personal Photo 3">
+      <img src="assets/images/PH4.jpg" alt="Personal Photo 4">
     </div>
-  </body>
+
+    <!-- Text Card -->
+    <div class="text-card">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a augue sed erat lacinia sodales. Praesent quis velit non justo accumsan dapibus.</p>
+    </div>
+
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="assets/audio/A_Thousand_Years.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <!-- Section 2: Thank you and Donations -->
+  <section id="donations" style="background-color: #f3e5f5;">
+    <h1 class="section-title">Thank you and Donations</h1>
+
+    <!-- Donation Links -->
+    <div class="donation-links">
+      <a href="https://paypal.com/example" target="_blank">Help with our honeymoon - PayPal</a>
+      <a href="https://picpay.me/example" target="_blank">Contribute via PicPay</a>
+      <a href="https://example.com" target="_blank">Gift Registry</a>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-section">
+      <img src="assets/images/QRCode.png" alt="Donation QR Code">
+      <p>Scan this QR to send any value you wish to help us!</p>
+    </div>
+
+    <!-- Ambient Audio -->
+    <audio autoplay loop>
+      <source src="assets/audio/Marry_Me_Bella.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <!-- Section 3: Invites and Guest Norms -->
+  <section id="invites" style="background-color: #fce4ec;">
+    <h1 class="section-title">Invites and Guest Norms</h1>
+
+    <!-- Instagram Hotel Link -->
+    <div class="guest-links">
+      <a href="https://instagram.com/HotelWeddingVenue" target="_blank">Venue Instagram Page</a>
+    </div>
+
+    <!-- Invitation Card -->
+    <div class="text-card">
+      <h2>Wedding Invitation</h2>
+      <p>Date: 27/12/2025</p>
+      <p>Location: Beautiful Garden Hotel, Rio de Janeiro</p>
+      <p>Time: 16:00h</p>
+      <p>Dress code: Formal Summer</p>
+      <a href="https://forms.gle/RSVPFormExample" target="_blank">Click here to RSVP</a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-bar" id="countdown">
+      Wedding Countdown: <span id="days">0</span> days left!
+    </div>
+  
+    <!-- Ambient Audio -->
+    <audio autoplay loop>
+      <source src="assets/audio/Turning_Page.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+  </section>
+
+  <script>
+    // Simple JS countdown for wedding day
+    const weddingDate = new Date("2025-12-27T00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("days").innerText = days > 0 ? days : 0;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 86400000); // Update once per day
+  </script>
+
+</body>
 </html>
