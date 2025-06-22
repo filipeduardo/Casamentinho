@@ -327,7 +327,11 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
 
   const sections = document.querySelectorAll("section");
 
+<<<<<<< HEAD
   function fadeOut(audio, duration = 1000) {
+=======
+  function fadeOut(audio, duration = 500) {
+>>>>>>> 2ac72d6b63e452819689fc5b7d771792d65563f6
     let step = audio.volume / (duration / 50);
     let fade = setInterval(() => {
       if (audio.volume > step) {
@@ -340,7 +344,11 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
     }, 50);
   }
 
+<<<<<<< HEAD
   function fadeIn(audio, duration = 1000) {
+=======
+  function fadeIn(audio, duration = 500) {
+>>>>>>> 2ac72d6b63e452819689fc5b7d771792d65563f6
     audio.muted = false;
     audio.volume = 0;
     let playPromise = audio.play();
