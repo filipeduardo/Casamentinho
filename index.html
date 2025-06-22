@@ -237,14 +237,9 @@
     clearInterval(autoPlayInterval);
   }
 
-  window.onload = function() {
-    updateCarousel();
-    startAutoPlay();
-    playAudioFor("our-story");
-  };
-
 document.addEventListener('click', () => playAudioFor("our-story"), { once: true });
 document.addEventListener('touchstart', () => playAudioFor("our-story"), { once: true });
+
 </script>
 
 
@@ -292,9 +287,9 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
   </section>
 
 <!-- Background Music -->
-<audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" loop></audio>
-<audio id="donation-audio" src="assets/audio/Marry_Me_Bella.mp3" loop></audio>
-<audio id="invites-audio" src="assets/audio/Turning_Page.mp3" loop></audio>
+<audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" preload="auto" loop></audio>
+<audio id="donation-audio" src="assets/audio/Marry_Me_Bella.mp3" preload="auto" loop></audio>
+<audio id="invites-audio" src="assets/audio/Turning_Page.mp3" preload="auto" loop></audio>
 
 <script>
   // Countdown Timer
@@ -325,23 +320,91 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
     "invites": document.getElementById('invites-audio')
   };
 
-  const sections = document.querySelectorAll("section");
+  const audioReady = {};
+  let pendingSectionToPlay = null;
   let currentPlayingSection = "";
+  let debounceTimeout = null;
 
-  function pauseAllAudio() {
-    Object.values(audios).forEach(audio => audio.pause());
+  const sections = document.querySelectorAll("section");
+
+  function fadeOut(audio, duration = 1000) {
+    let step = audio.volume / (duration / 50);
+    let fade = setInterval(() => {
+      if (audio.volume > step) {
+        audio.volume -= step;
+      } else {
+        audio.volume = 0;
+        audio.pause();
+        clearInterval(fade);
+      }
+    }, 50);
+  }
+
+  function fadeIn(audio, duration = 1000) {
+    audio.muted = false;
+    audio.volume = 0;
+    let playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+    let step = 1 / (duration / 50);
+    let fade = setInterval(() => {
+      if (audio.volume < 1 - step) {
+        audio.volume += step;
+      } else {
+        audio.volume = 1;
+        clearInterval(fade);
+      }
+    }, 50);
+  }
+
+  // Attach canplaythrough handlers ONCE, up front
+  Object.keys(audios).forEach(sectionId => {
+    audios[sectionId].addEventListener('canplaythrough', () => {
+      audioReady[sectionId] = true;
+      // Only fade in if this is *still* the section the user wants, AND is still the actual visible section
+      if (
+        pendingSectionToPlay === sectionId &&
+        isSectionActive(sectionId)
+      ) {
+        fadeIn(audios[sectionId]);
+        currentPlayingSection = sectionId;
+        pendingSectionToPlay = null;
+      }
+    });
+  });
+
+  function isSectionActive(sectionId) {
+    // Checks if the given section is actually centered
+    const section = document.getElementById(sectionId);
+    if (!section) return false;
+    const rect = section.getBoundingClientRect();
+    return (
+      rect.top <= window.innerHeight / 2 &&
+      rect.bottom >= window.innerHeight / 2
+    );
   }
 
   function playAudioFor(sectionId) {
-    pauseAllAudio();
-    const audio = audios[sectionId];
-    if (audio) {
-      audio.muted = false;
-      audio.play().catch(() => {});
+    if (sectionId === currentPlayingSection) return;
+    pendingSectionToPlay = sectionId;
+
+    // Fade out current audio
+    if (currentPlayingSection && audios[currentPlayingSection]) {
+      fadeOut(audios[currentPlayingSection]);
+    }
+
+    const newAudio = audios[sectionId];
+    if (newAudio) {
+      if (audioReady[sectionId] && isSectionActive(sectionId)) {
+        fadeIn(newAudio);
+        currentPlayingSection = sectionId;
+        pendingSectionToPlay = null;
+      }
+      // Else: will be handled by canplaythrough + active check above
     }
   }
 
-  // Scroll-triggered audio change - Only switch if section actually changed
   document.addEventListener("scroll", () => {
     let activeSection = "";
     sections.forEach(section => {
@@ -350,24 +413,44 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
         activeSection = section.id;
       }
     });
+
     if (activeSection && activeSection !== currentPlayingSection) {
-      playAudioFor(activeSection);
-      currentPlayingSection = activeSection;
+      if (debounceTimeout) clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        playAudioFor(activeSection);
+      }, 800);
     }
   });
 
-  // On Load: Start carousel, autoplay, countdown and first section music
   window.onload = function() {
     updateCarousel();
     startAutoPlay();
-    playAudioFor("our-story");
     currentPlayingSection = "our-story";
+
+    if (audioReady["our-story"]) {
+      fadeIn(audios["our-story"]);
+    } else {
+      audios["our-story"].addEventListener('canplaythrough', () => fadeIn(audios["our-story"]), { once: true });
+    }
   };
 
-  // Browser autoplay policy bypass for Chrome/Safari (wait for user interaction)
-  document.addEventListener('click', () => playAudioFor(currentPlayingSection), { once: true });
-  document.addEventListener('touchstart', () => playAudioFor(currentPlayingSection), { once: true });
+  // Browser autoplay fallback: First user click or tap
+  document.addEventListener('click', () => {
+    const firstAudio = audios[currentPlayingSection];
+    if (firstAudio && firstAudio.paused) {
+      fadeIn(firstAudio);
+    }
+  }, { once: true });
+
+  document.addEventListener('touchstart', () => {
+    const firstAudio = audios[currentPlayingSection];
+    if (firstAudio && firstAudio.paused) {
+      fadeIn(firstAudio);
+    }
+  }, { once: true });
+
 </script>
+
 
 
 </body>
