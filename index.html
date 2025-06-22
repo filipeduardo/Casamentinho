@@ -86,21 +86,19 @@
     --section2-contrast: 100%;
   }
 
-  #our-story .background-layer {
+  .background-layer {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('assets/images/BackgroundSec1.png');
     background-size: cover;
     background-position: center;
-    filter: 
-      blur(5px)
-      hue-rotate(var(--section1-hue))
-      brightness(var(--section1-brightness))
-      saturate(var(--section1-saturate))
-      contrast(var(--section1-contrast));
+    filter: blur(var(--section-blur, 5px))
+            hue-rotate(var(--section-hue, 0deg))
+            brightness(var(--section-brightness, 100%))
+            saturate(var(--section-saturate, 100%))
+            contrast(var(--section-contrast, 100%));
     z-index: 0;
   }
 
@@ -109,6 +107,14 @@
     z-index: 1;
   }
 
+#donations > *:not(.background-layer) {
+  position: relative;
+  z-index: 1;
+}
+#invitation > *:not(.background-layer) {
+  position: relative;
+  z-index: 1;
+}
   .section-fade::after {
   content: "";
   position: absolute;
@@ -130,10 +136,12 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  --section-hue: var(--section1-hue);
+  --section-brightness: var(--section1-brightness);
+  --section-saturate: var(--section1-saturate);
+  --section-contrast: var(--section1-contrast);
 ">
-
-  <!-- Background Image Layer -->
-  <div class="background-layer"></div>
+  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
 
   <!-- Título fora do cartão rosa -->
   <h1 class="section-title" style="text-align:center;">Our Story</h1>
@@ -332,30 +340,24 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
 <section id="donations" class="section-fade" style="
   position: relative;
   overflow: hidden;
-  background-image: url('assets/images/BackgroundSec2.png');
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
-  margin-top: 0;
-  padding-top: 0;
+  --section-hue: var(--section2-hue);
+  --section-brightness: var(--section2-brightness);
+  --section-saturate: var(--section2-saturate);
+  --section-contrast: var(--section2-contrast);
 ">
-<div class="background-layer" style="
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('assets/images/BackgroundSec2.png');
-  background-size: cover;
-  background-position: center;
-  filter: 
-    blur(5px)
-    hue-rotate(var(--section2-hue))
-    brightness(var(--section2-brightness))
-    saturate(var(--section2-saturate))
-    contrast(var(--section2-contrast));
-  z-index: 0;
-"></div>
+ <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
+
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to top, rgba(251,242,226,0) 0%, rgba(251,242,226,1) 100%);
+    pointer-events: none;
+    z-index: 2;
+  "></div>
+
     <h1 class="section-title">Faça parte com sua ajuda</h1>
     <div class="horizontal-flex">
       <div class="donation-board">
