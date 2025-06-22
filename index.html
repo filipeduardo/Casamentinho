@@ -84,6 +84,11 @@
     --section2-brightness: 100%;
     --section2-saturate: 100%;
     --section2-contrast: 100%;
+  
+    --section3-hue: 0deg;
+    --section3-brightness: 120%;
+    --section3-saturate: 100%;
+    --section3-contrast: 80%;
   }
 
   .background-layer {
@@ -373,21 +378,33 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
   </section>
 
   <!-- Section 3: Invites and Guest Norms -->
-<section id="invites" class="section-fade" style="
+<section id="donations" class="section-fade" style="
   position: relative;
   overflow: hidden;
-  background-color: #fce4ec;
+  --section-hue: var(--section2-hue);
+  --section-brightness: var(--section2-brightness);
+  --section-saturate: var(--section2-saturate);
+  --section-contrast: var(--section2-contrast);
 ">
-<div style="
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(to top, rgba(251,242,226,0) 0%, rgba(251,242,226,1) 100%);
-  pointer-events: none;
-  z-index: 2;
+<div class="background-layer" style="
+  background-image: url('assets/images/Maison.jpg');
+  filter: 
+    blur(2px)
+    hue-rotate(var(--section3-hue))
+    brightness(var(--section3-brightness))
+    saturate(var(--section3-saturate))
+    contrast(var(--section3-contrast));
 "></div>
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(251,242,226,1) 100%);
+    pointer-events: none;
+    z-index: 2;
+  "></div>
     <h1 class="section-title">Invites and Guest Norms</h1>
 
     <!-- Countdown comes first -->
@@ -397,16 +414,16 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
 
     <!-- Instagram and Invitation -->
     <div class="guest-links">
-      <a href="https://instagram.com/HotelWeddingVenue" target="_blank">Venue Instagram Page</a>
+      <a href="https://www.instagram.com/maisongarden_" target="_blank">Maison Garden</a>
     </div>
 
     <div class="invitation-card">
       <h2>Wedding Invitation</h2>
       <p>Date: 27/12/2025</p>
-      <p>Location: Beautiful Garden Hotel, Rio de Janeiro</p>
+      <p>Location: Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
       <p>Time: 16:00h</p>
-      <p>Dress code: Formal Summer</p>
-      <a href="https://forms.gle/RSVPFormExample" target="_blank">Click here to RSVP</a>
+      <p>Dress code: Vide Ingresso</p>
+      <a href="https://forms.gle/RSVPFormExample" target="_blank">Confirme sua presença AQUI</a>
     </div>
   </section>
 
