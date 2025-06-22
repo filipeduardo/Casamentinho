@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <title>Wedding of Elaine & Filipe</title>
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
@@ -72,110 +73,195 @@
 
 <body>
 
-<section id="our-story" style="display:flex; flex-direction:column; align-items:center; gap:2rem;">
+<style>
+  :root {
+    --section1-hue: 0deg;
+    --section1-brightness: 100%;
+    --section1-saturate: 100%;
+    --section1-contrast: 100%;
+
+    --section2-hue: 0deg;
+    --section2-brightness: 100%;
+    --section2-saturate: 100%;
+    --section2-contrast: 100%;
+  }
+
+  #our-story .background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/images/BackgroundSec1.png');
+    background-size: cover;
+    background-position: center;
+    filter: 
+      blur(5px)
+      hue-rotate(var(--section1-hue))
+      brightness(var(--section1-brightness))
+      saturate(var(--section1-saturate))
+      contrast(var(--section1-contrast));
+    z-index: 0;
+  }
+
+  #our-story > *:not(.background-layer) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-fade::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,1) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+</style>
+
+<section id="our-story" class="section-fade" style="
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+">
+
+  <!-- Background Image Layer -->
+  <div class="background-layer"></div>
 
   <!-- Título fora do cartão rosa -->
   <h1 class="section-title" style="text-align:center;">Our Story</h1>
 
   <div class="horizontal-flex" style="align-items:flex-start;">
 
-<!-- Pink Card Carousel with flores2.png background -->
-<div style="
-  background-image: url('assets/images/flores2.png');
-  background-size: cover;
-  background-position: center;
-  border-radius: 60px;
-  padding: 30px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  width: 600px;
-  min-width: 300px;
-  position: relative;
-">
-
-  <div id="carousel-container" style="
-    position: relative;
-    width: 100%;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  ">
-    <!-- Left Image -->
-    <img id="left-img" style="
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      top: 125px;
-      left: 20px;
-      filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
-      border-radius: 30px;
-      transition: all 0.5s;
-      z-index: 1;
-    ">
-
-    <!-- Right Image -->
-    <img id="right-img" style="
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      top: 125px;
-      right: 20px;
-      filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
-      border-radius: 30px;
-      transition: all 0.5s;
-      z-index: 1;
-    ">
-
-    <!-- Center Image -->
-    <img id="center-img" style="
+    <!-- Pink Card Carousel with flores2.png background -->
+    <div style="
+      background-image: url('assets/images/flores2.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 60px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      width: 600px;
+      min-width: 300px;
       position: relative;
-      width: 300px;
-      height: 300px;
-      filter: drop-shadow(0 31px 10px rgba(0,0,0,0.5));
-      border-radius: 30px;
-      transition: all 0.5s ease;
-      z-index: 2;
     ">
+      <div id="carousel-container" style="
+        position: relative;
+        width: 100%;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      ">
+        <!-- Left Image -->
+        <img id="left-img" style="
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          top: 125px;
+          left: 20px;
+          filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
+          border-radius: 30px;
+          transition: all 0.5s;
+          z-index: 1;
+        ">
 
+        <!-- Right Image -->
+        <img id="right-img" style="
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          top: 125px;
+          right: 20px;
+          filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5));
+          border-radius: 30px;
+          transition: all 0.5s;
+          z-index: 1;
+        ">
 
-    <!-- Navigation Buttons -->
-    <button onclick="prevImage()" style="
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.8);
-      border-radius: 10px;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 3;
-    ">❮</button>
+        <!-- Center Image -->
+        <img id="center-img" style="
+          position: relative;
+          width: 300px;
+          height: 300px;
+          filter: drop-shadow(0 31px 10px rgba(0,0,0,0.5));
+          border-radius: 30px;
+          transition: all 0.5s ease;
+          z-index: 2;
+        ">
 
-    <button onclick="nextImage()" style="
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.8);
-      border-radius: 10px;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 3;
-    ">❯</button>
-  </div>
-</div>
+        <!-- Navigation Buttons -->
+        <button onclick="prevImage()" style="
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255,255,255,0.8);
+          border-radius: 10px;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          z-index: 3;
+        ">❮</button>
 
-
-    <!-- Text Card (Right) -->
-    <div class="text-card" style="max-width:500px;">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id odio dolor. Etiam auctor, urna pretium pulvinar porta, odio lectus imperdiet arcu...</p>
+        <button onclick="nextImage()" style="
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255,255,255,0.8);
+          border-radius: 10px;
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          z-index: 3;
+        ">❯</button>
+      </div>
     </div>
 
+    <!-- Text Card (Right) -->
+    <div class="text-card" style="
+      max-width:600px;
+      width:600px;
+      padding:1.5rem;
+      border-radius:1rem;
+      box-shadow:0 4px 20px rgba(0,0,0,0.2);
+      background-size: cover;
+      background-position: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+      color: #C2185B;
+      background-repeat: no-repeat;
+      background-attachment: local;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-image: 
+        repeating-linear-gradient(
+          to bottom,
+          transparent,
+          transparent 1.8rem,
+          rgba(194, 24, 91, 0.2) 1.9rem,
+          transparent 2rem
+        ),
+        url('assets/images/offwhite_paper_background.png');
+    ">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id odio dolor. Etiam auctor, urna pretium pulvinar porta, odio lectus imperdiet arcu...</p>
+    </div>
   </div>
+
 </section>
+
+
+
 
 <style>
   @media (max-width: 768px) {
@@ -242,12 +328,34 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
 
 </script>
 
-
-
-
-
   <!-- Section 2: Thank You and Donations -->
-  <section id="donations" style="background-color: #f3e5f5;">
+<section id="donations" class="section-fade" style="
+  position: relative;
+  overflow: hidden;
+  background-image: url('assets/images/BackgroundSec2.png');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  margin-top: 0;
+  padding-top: 0;
+">
+<div class="background-layer" style="
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/images/BackgroundSec2.png');
+  background-size: cover;
+  background-position: center;
+  filter: 
+    blur(5px)
+    hue-rotate(var(--section2-hue))
+    brightness(var(--section2-brightness))
+    saturate(var(--section2-saturate))
+    contrast(var(--section2-contrast));
+  z-index: 0;
+"></div>
     <h1 class="section-title">Faça parte com sua ajuda</h1>
     <div class="horizontal-flex">
       <div class="donation-board">
@@ -263,7 +371,21 @@ document.addEventListener('touchstart', () => playAudioFor("our-story"), { once:
   </section>
 
   <!-- Section 3: Invites and Guest Norms -->
-  <section id="invites" style="background-color: #fce4ec;">
+<section id="invites" class="section-fade" style="
+  position: relative;
+  overflow: hidden;
+  background-color: #fce4ec;
+">
+<div style="
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to top, rgba(251,242,226,0) 0%, rgba(251,242,226,1) 100%);
+  pointer-events: none;
+  z-index: 2;
+"></div>
     <h1 class="section-title">Invites and Guest Norms</h1>
 
     <!-- Countdown comes first -->
