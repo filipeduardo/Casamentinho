@@ -240,7 +240,11 @@
   window.onload = function() {
     updateCarousel();
     startAutoPlay();
+    playAudioFor("our-story");
   };
+
+document.addEventListener('click', () => playAudioFor("our-story"), { once: true });
+document.addEventListener('touchstart', () => playAudioFor("our-story"), { once: true });
 </script>
 
 
@@ -287,67 +291,84 @@
     </div>
   </section>
 
-  <!-- Background Music -->
-  <audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" loop></audio>
-  <audio id="donation-audio" src="assets/audio/Marry_Me_Bella.mp3" loop></audio>
-  <audio id="invites-audio" src="assets/audio/Turning_Page.mp3" loop></audio>
+<!-- Background Music -->
+<audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" loop></audio>
+<audio id="donation-audio" src="assets/audio/Marry_Me_Bella.mp3" loop></audio>
+<audio id="invites-audio" src="assets/audio/Turning_Page.mp3" loop></audio>
 
-  <script>
-    // Countdown Timer
-    const weddingDate = new Date("2025-12-27T16:00:00").getTime();
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "It's wedding time!";
-        return;
+<script>
+  // Countdown Timer
+  const weddingDate = new Date("2025-12-27T16:00:00").getTime();
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+    if (distance <= 0) {
+      document.getElementById("countdown").innerHTML = "It's wedding time!";
+      return;
+    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Section-based Audio Control
+  const audios = {
+    "our-story": document.getElementById('story-audio'),
+    "donations": document.getElementById('donation-audio'),
+    "invites": document.getElementById('invites-audio')
+  };
+
+  const sections = document.querySelectorAll("section");
+  let currentPlayingSection = "";
+
+  function pauseAllAudio() {
+    Object.values(audios).forEach(audio => audio.pause());
+  }
+
+  function playAudioFor(sectionId) {
+    pauseAllAudio();
+    const audio = audios[sectionId];
+    if (audio) {
+      audio.muted = false;
+      audio.play().catch(() => {});
+    }
+  }
+
+  // Scroll-triggered audio change - Only switch if section actually changed
+  document.addEventListener("scroll", () => {
+    let activeSection = "";
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+        activeSection = section.id;
       }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("days").innerText = days;
-      document.getElementById("hours").innerText = hours;
-      document.getElementById("minutes").innerText = minutes;
-      document.getElementById("seconds").innerText = seconds;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // Section-based Audio Control
-    const audios = {
-      "our-story": document.getElementById('story-audio'),
-      "donations": document.getElementById('donation-audio'),
-      "invites": document.getElementById('invites-audio')
-    };
-    const sections = document.querySelectorAll("section");
-
-    function pauseAllAudio() {
-      Object.values(audios).forEach(audio => audio.pause());
-    }
-
-    function playAudioFor(sectionId) {
-      pauseAllAudio();
-      const audio = audios[sectionId];
-      if (audio) {
-        audio.muted = false;
-        audio.play().catch(() => {});
-      }
-    }
-
-    document.addEventListener("scroll", () => {
-      let activeSection = "";
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-          activeSection = section.id;
-        }
-      });
-      playAudioFor(activeSection);
     });
+    if (activeSection && activeSection !== currentPlayingSection) {
+      playAudioFor(activeSection);
+      currentPlayingSection = activeSection;
+    }
+  });
 
-    window.onload = () => playAudioFor("our-story");
-  </script>
+  // On Load: Start carousel, autoplay, countdown and first section music
+  window.onload = function() {
+    updateCarousel();
+    startAutoPlay();
+    playAudioFor("our-story");
+    currentPlayingSection = "our-story";
+  };
+
+  // Browser autoplay policy bypass for Chrome/Safari (wait for user interaction)
+  document.addEventListener('click', () => playAudioFor(currentPlayingSection), { once: true });
+  document.addEventListener('touchstart', () => playAudioFor(currentPlayingSection), { once: true });
+</script>
+
 
 </body>
 </html>
