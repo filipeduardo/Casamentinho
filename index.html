@@ -25,13 +25,13 @@
     }
     section {
       scroll-snap-align: start;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem;
       position: relative;
+      /* No fixed height! */
     }
     .section-title {
       font-family: 'Dancing Script', cursive;
@@ -73,8 +73,8 @@
       font-size: 2.1rem;
       font-weight: 600;
       color: var(--accent);
-      padding: 2.2rem 2rem;
-      letter-spacing: 0.5px;
+      padding: 1rem 1em;
+      letter-spacing: 0.1px;
       border-radius: 1.4rem;
       box-shadow: 0 4px 18px rgba(59,39,82,0.14);
       border: 1.5px solid #f7e6ee;
@@ -145,7 +145,7 @@
     }
     #donations .donation-board.qr img.qr {
       width: 240px;
-      height: 240px;
+      height: 250px;
       margin: 1rem 0 0 0;
       border-radius: 1rem;
       border: 2px solid #f7e6ee;
@@ -229,7 +229,7 @@
 </head>
 <body>
 
-<section id="our-story" class="section-fade" style="position: relative; overflow: hidden;">
+<section id="our-story" class="section-fade" style="position: relative; overflow: hidden; height: 130vh;">
   <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
   <h1 class="section-title">Our Story</h1>
   <div class="horizontal-flex" style="align-items:flex-start;">
@@ -262,7 +262,7 @@
   </div>
 </section>
 
-<section id="donations" class="section-fade" style="position: relative; overflow: hidden;">
+<section id="donations" class="section-fade" style="position: relative; overflow: hidden; height: 100vh;">
   <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
   <h1 class="section-title" style="margin-bottom: 1.5rem;">Faça parte com sua ajuda ❤️</h1>
   <div class="donations-flexrow">
@@ -282,12 +282,13 @@
     <div class="donation-board qr donation-qr-with-margin">
       <img class="icon" src="assets/images/iconMoney.png" alt="Doação">
       <span class="donation-title">PIX para sua contribuição direta.</span>
+      <span class="donation-title" style="font-family:'Dancing Script',cursive;" >(Abra no aplicativo do seu banco)</span>
       <img class="qr" src="assets/images/QRCode.png" alt="Donation QR Code">
     </div>
   </div>
 </section>
 
-<section id="invites" class="section-fade" style="position: relative; overflow: hidden;">
+<section id="invites" class="section-fade" style="position: relative; overflow: hidden; height: 100vh;">
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
   <div class="countdown-card">
@@ -297,7 +298,7 @@
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
   <div class="invitation-card" style="text-align:center;">
-    <h2 style="margin-top:0; margin-bottom:1rem;">Local da Cerimônia: <a href="https://www.instagram.com/maisongarden_" target="_blank" style="background:none; color:var(--accent); padding:0;">Maison Garden</a></h2>
+    <h2 style="margin-top:0; margin-bottom:1rem; text-align:center;">Local da Cerimônia: <a href="https://www.instagram.com/maisongarden_" target="_blank" >Maison Garden</a></h2>
     <div style="width:100%; max-width:600px; margin:0 auto 1.5rem; border-radius:14px; overflow:hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.13);">
       <iframe
         src="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro&output=embed"
