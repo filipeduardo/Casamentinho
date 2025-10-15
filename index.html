@@ -105,7 +105,7 @@
       background: linear-gradient(to bottom, #fffef7 0%, #faf9f0 100%);
       padding: 3rem 2.5rem;
       border-radius: 8px;
-      box-shadow: 
+      box-shadow:
         0 1px 3px rgba(0,0,0,0.12),
         0 10px 20px rgba(0,0,0,0.08),
         inset 0 1px 0 rgba(255,255,255,0.5);
@@ -113,7 +113,7 @@
       max-width: 800px;
       margin: 1.5rem 0;
       animation: fadeInLetter 1.2s ease-out;
-      background-image: 
+      background-image:
         repeating-linear-gradient(
           transparent,
           transparent 31px,
@@ -567,12 +567,12 @@
         <p style="margin:0.7rem 0; font-size:1.3rem;"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent);">(Por favor chegar antes ❤️)</span></p>
       </div>
     </div>
-    
+
     <!-- Dress Code Section -->
     <div style="margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.5); border-radius: 20px;">
       <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.2rem; color: var(--accent);">👔 Dress Code: Esporte Fino</h2>
       <p style="font-size:1.2rem; margin-bottom: 2rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
-      
+
       <!-- Men's Examples -->
       <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
         <div style="flex: 1; min-width: 280px; max-width: 350px;">
@@ -584,7 +584,7 @@
           <p style="margin-top: 1rem; font-size: 1.1rem; font-weight: 600;">Camisa social e calça de alfaiataria</p>
         </div>
       </div>
-      
+
       <!-- Ladies Placeholder -->
       <div style="margin-top: 3rem; padding: 2rem; background: rgba(194,24,91,0.05); border-radius: 16px; border: 2px dashed rgba(194,24,91,0.3);">
         <h3 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem;">👗 Inspirações para as Damas</h3>
@@ -679,10 +679,10 @@
   function fadeOut(audio, sectionId, duration = 700) {
     if (!audio) return;
     clearFadeInterval(sectionId);
-    
+
     const startVolume = audio.volume;
     const step = startVolume / (duration / 50);
-    
+
     fadeIntervals[sectionId] = setInterval(() => {
       if (audio.volume > step) {
         audio.volume = Math.max(0, audio.volume - step);
@@ -697,7 +697,7 @@
   function fadeIn(audio, sectionId, duration = 700, seekTime = null) {
     if (!audio) return;
     clearFadeInterval(sectionId);
-    
+
     // Set seek time if provided
     if (seekTime !== null && !isNaN(seekTime)) {
       try {
@@ -709,7 +709,7 @@
 
     audio.volume = 0;
     const playPromise = audio.play();
-    
+
     if (playPromise !== undefined) {
       playPromise.then(() => {
         const step = 1 / (duration / 50);
@@ -730,28 +730,28 @@
   function getActiveSection() {
     let activeSection = null;
     let maxVisibility = 0;
-    
+
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      
+
       // Calculate how much of the section is visible
       const visibleTop = Math.max(0, rect.top);
       const visibleBottom = Math.min(viewportHeight, rect.bottom);
       const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-      
+
       if (visibleHeight > maxVisibility) {
         maxVisibility = visibleHeight;
         activeSection = section.id;
       }
     });
-    
+
     return activeSection;
   }
 
   function switchAudio(newSectionId) {
     if (!newSectionId || newSectionId === currentPlayingSection) return;
-    
+
     // Fade out current audio
     if (currentPlayingSection && audios[currentPlayingSection]) {
       fadeOut(audios[currentPlayingSection], currentPlayingSection);
@@ -770,7 +770,7 @@
   // Scroll handler with debounce
   document.addEventListener("scroll", () => {
     if (!userInteracted) return;
-    
+
     if (debounceTimeout) clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       const activeSection = getActiveSection();
