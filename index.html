@@ -20,19 +20,69 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      scroll-snap-type: y mandatory;
       overflow-y: scroll;
       scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
     }
+
+    html {
+      scroll-padding: 10px 0;
+    }
+
     section {
-      scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 3rem 2rem;
       position: relative;
-      /* No fixed height! */
+      min-height: 100vh;
+      scroll-snap-align: center;
+      scroll-snap-stop: normal;
+    }
+
+    /* Add CSS scroll snap points for gentle pull */
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-snap-type: y proximity;
+      }
+    }
+
+    /* Smooth scroll timing */
+    * {
+      scroll-behavior: smooth;
+    }
+
+    @supports (scroll-timeline: --section-scroll) {
+      html {
+        scroll-timeline: --section-scroll;
+        animation-timeline: --section-scroll;
+      }
+    }
+
+    /* Individual section styling */
+    #our-story {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #love-story {
+      min-height: 100vh;
+      height: auto;
+    }
+
+    #donations {
+      height: 100vh;
+    }
+
+    #venue-info {
+      min-height: 100vh;
+      height: auto;
+    }
+
+    #dress-code {
+      min-height: 100vh;
+      height: auto;
     }
     .section-title {
       font-family: 'Dancing Script', cursive;
@@ -43,6 +93,12 @@
       text-align: center;
       animation: scaleIn 1s ease-out;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      opacity: 1 !important;
+    }
+
+    /* Ensure all text has full opacity */
+    h1, h2, h3, h4, h5, h6, p, span, div {
+      opacity: 1;
     }
     h2, h3 {
       font-family: 'Dancing Script', cursive;
@@ -69,6 +125,15 @@
       }
     }
 
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
     @keyframes scaleIn {
       from {
         opacity: 0;
@@ -78,6 +143,69 @@
         opacity: 1;
         transform: scale(1);
       }
+    }
+
+    @keyframes fadeInNames {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideNames {
+      0% {
+        opacity: 0;
+        letter-spacing: 20px;
+      }
+      100% {
+        opacity: 1;
+        letter-spacing: 5px;
+      }
+    }
+
+    .couple-names {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInNames 1.5s ease-out;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
+      font-weight: 700;
+    }
+
+    .couple-names .name-separator {
+      font-size: 3.5rem;
+      margin: 0 1rem;
+      animation: scaleIn 1.2s ease-out 0.3s both;
+    }
+
+    /* Carousel center image hover effect - smooth and gradual */
+    #carousel-container {
+      transition: gap 0.6s ease;
+    }
+
+    .carousel-center {
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+
+    .carousel-center:hover {
+      height: 90vh !important;
+      width: auto !important;
+      transform: scale(1.02);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.6) !important;
+      z-index: 10 !important;
+    }
+
+    /* Smooth side image movement when center is hovered */
+    #carousel-container:has(.carousel-center:hover) #left-img,
+    #carousel-container:has(.carousel-center:hover) #right-img {
+      transform: translateX(0);
+      transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     @keyframes typewriter {
@@ -100,60 +228,178 @@
       }
     }
 
+    /* Fullscreen Carousel Modal */
+    #carousel-fullscreen-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    #carousel-fullscreen-modal.active {
+      display: flex;
+    }
+
+    #fullscreen-carousel-img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      animation: scaleIn 0.4s ease-out;
+    }
+
+    #close-fullscreen {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--dark-main);
+      transition: all 0.3s ease;
+      z-index: 10000;
+    }
+
+    #close-fullscreen:hover {
+      background: white;
+      transform: rotate(90deg);
+    }
+
+    /* Audio Permission Bubble */
+    #audio-permission {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(255,255,255,0.98);
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(59,39,82,0.3);
+      z-index: 10000;
+      display: none;
+      animation: slideInUp 0.5s ease-out;
+      border: 2px solid var(--accent);
+    }
+
+    #audio-permission.active {
+      display: block;
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    #audio-permission h3 {
+      margin: 0 0 1rem 0;
+      color: var(--accent);
+      font-size: 1.4rem;
+    }
+
+    #audio-permission p {
+      margin: 0 0 1.2rem 0;
+      color: var(--dark-main);
+      font-size: 1.1rem;
+    }
+
+    .audio-controls {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .audio-btn {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .audio-btn.allow {
+      background: var(--accent);
+      color: white;
+    }
+
+    .audio-btn.allow:hover {
+      background: #99204a;
+      transform: translateY(-2px);
+    }
+
+    .audio-btn.mute {
+      background: #e0e0e0;
+      color: var(--dark-main);
+    }
+
+    .audio-btn.mute:hover {
+      background: #d0d0d0;
+    }
+
     .love-letter {
       position: relative;
-      background: linear-gradient(to bottom, #fffef7 0%, #faf9f0 100%);
-      padding: 3rem 2.5rem;
-      border-radius: 8px;
-      box-shadow:
-        0 1px 3px rgba(0,0,0,0.12),
-        0 10px 20px rgba(0,0,0,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.5);
-      border: 1px solid #e8e6d8;
-      max-width: 800px;
-      margin: 1.5rem 0;
-      animation: fadeInLetter 1.2s ease-out;
-      background-image:
-        repeating-linear-gradient(
-          transparent,
-          transparent 31px,
-          #d4d1c0 31px,
-          #d4d1c0 32px
-        );
-      background-attachment: local;
-      line-height: 32px !important;
+      background-image: url('assets/images/Paper.jpg');
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      padding: 4rem 5rem 4rem 8rem;
+      max-width: 1400px;
+      width: 92%;
+      margin: 2rem auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
+      animation: fadeInUp 1s ease-out;
     }
 
     .love-letter::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 80px;
-      width: 2px;
+      left: 100px;
+      width: 3px;
       height: 100%;
-      background: #f0d6d8;
+      background: rgba(194,24,91,0.2);
     }
 
     .love-letter p {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.5rem;
-      line-height: 32px;
-      color: #2c2416;
-      margin: 0;
+      font-size: 2.3rem;
+      line-height: 3.2rem;
+      color: #0d0a08;
+      margin: 0 0 2.5rem 0;
       padding-left: 0;
       text-align: left;
       position: relative;
-      overflow: hidden;
       animation: fadeInLetter 1.5s ease-out;
+      text-shadow: 0.5px 0.5px 0.5px rgba(0,0,0,0.1);
+      font-weight: 500;
     }
 
     .love-letter-signature {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
+      font-size: 2.8rem;
       text-align: right;
-      margin-top: 2rem;
+      margin-top: 4rem;
       color: var(--accent);
-      font-weight: 600;
+      font-weight: 700;
+      text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
     }
 
     /* Unified Card Styles - Larger and More Beautiful */
@@ -175,8 +421,12 @@
     }
 
     .card:hover, .donation-board:hover, .invitation-card:hover, .text-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 32px rgba(59,39,82,0.18);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(59,39,82,0.22);
+    }
+
+    .card, .donation-board, .invitation-card, .text-card {
+      will-change: transform, box-shadow;
     }
     .countdown-card {
       text-align: center;
@@ -293,6 +543,12 @@
       .section-title {
         font-size: 2.8rem;
       }
+      .couple-names {
+        font-size: 3.5rem;
+      }
+      .couple-names .name-separator {
+        font-size: 2.5rem;
+      }
       .donations-flexrow {
         flex-direction: column;
         align-items: center;
@@ -331,6 +587,12 @@
       .section-title {
         font-size: 2.5rem;
       }
+      .couple-names {
+        font-size: 3rem;
+      }
+      .couple-names .name-separator {
+        font-size: 2.2rem;
+      }
       /* Carousel adjustments for mobile - larger size */
       div[style*="width: 900px"] {
         width: 95vw !important;
@@ -338,29 +600,33 @@
         padding: 30px !important;
       }
       #carousel-container {
-        height: 450px !important;
+        height: 55vh !important;
+        gap: 1rem !important;
       }
       #center-img {
         width: 320px !important;
-        height: 320px !important;
+        height: 500px !important;
       }
       #left-img, #right-img {
-        width: 140px !important;
-        height: 140px !important;
-        top: 155px !important;
-      }
-      #left-img {
-        left: 15px !important;
-      }
-      #right-img {
-        right: 15px !important;
+        width: 180px !important;
+        height: 300px !important;
       }
       .love-letter {
-        font-size: 1.2rem !important;
-        padding: 2rem 1.5rem !important;
+        padding: 3rem 2rem 3rem 5rem !important;
+        width: 85% !important;
+        max-width: 600px !important;
+      }
+      .love-letter::before {
+        left: 50px !important;
       }
       .love-letter p {
-        font-size: 1.3rem !important;
+        font-size: 1.8rem !important;
+        line-height: 2.6rem !important;
+        margin-bottom: 2rem !important;
+      }
+      .love-letter-signature {
+        font-size: 2.3rem !important;
+        margin-top: 3rem !important;
       }
       #donations .donation-board img.icon {
         width: 90px;
@@ -376,6 +642,13 @@
       .section-title {
         font-size: 2.2rem;
       }
+      .couple-names {
+        font-size: 2.5rem;
+      }
+      .couple-names .name-separator {
+        font-size: 1.8rem;
+        margin: 0 0.5rem;
+      }
       .countdown-card {
         font-size: 1.5rem;
         flex-wrap: wrap;
@@ -386,30 +659,34 @@
       .countdown-card .countdown-label {
         font-size: 1rem;
       }
-      div[style*="width: 900px"] {
-        padding: 20px !important;
-      }
       #carousel-container {
-        height: 380px !important;
+        height: 50vh !important;
+        gap: 0.8rem !important;
       }
       #center-img {
         width: 260px !important;
-        height: 260px !important;
+        height: 400px !important;
       }
       #left-img, #right-img {
-        width: 110px !important;
-        height: 110px !important;
-        top: 135px !important;
+        width: 140px !important;
+        height: 230px !important;
       }
       .love-letter {
-        padding: 1.8rem 1.2rem !important;
+        padding: 2.5rem 1.5rem 2.5rem 4rem !important;
+        width: 80% !important;
+      }
+      .love-letter::before {
+        left: 50px !important;
+        width: 2px !important;
       }
       .love-letter p {
-        font-size: 1.2rem !important;
-        line-height: 28px !important;
+        font-size: 1.7rem !important;
+        line-height: 2.4rem !important;
+        margin-bottom: 1.8rem !important;
       }
       .love-letter-signature {
-        font-size: 1.5rem !important;
+        font-size: 2.1rem !important;
+        margin-top: 2.5rem !important;
       }
       #donations .donation-board.qr img.qr {
         width: 220px;
@@ -428,12 +705,12 @@
               saturate(var(--section-saturate, 100%))
               contrast(var(--section-contrast, 100%));
       z-index: 0;
+      opacity: 1 !important;
     }
-    #our-story > *:not(.background-layer),
-    #donations > *:not(.background-layer),
-    #invites > *:not(.background-layer) {
+    section > *:not(.background-layer) {
       position: relative;
       z-index: 1;
+      opacity: 1 !important;
     }
     .section-fade::after {
       content: "";
@@ -475,42 +752,47 @@
 </head>
 <body>
 
-<section id="our-story" class="section-fade" style="position: relative; overflow: hidden; height: 130vh;">
+<!-- Fullscreen Carousel Modal -->
+<div id="carousel-fullscreen-modal">
+  <button id="close-fullscreen">×</button>
+  <img id="fullscreen-carousel-img" src="" alt="Fullscreen Image">
+</div>
+
+<!-- Audio Permission Bubble -->
+<div id="audio-permission">
+  <h3>🎵 Música de Fundo</h3>
+  <p>Gostaria de ouvir música enquanto navega?</p>
+  <div class="audio-controls">
+    <button class="audio-btn allow" onclick="allowAudio()">Sim, por favor!</button>
+    <button class="audio-btn mute" onclick="muteAudio()">Não, obrigado</button>
+  </div>
+</div>
+
+<section id="our-story" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
-  <h1 class="section-title">Our Story</h1>
-  <div class="horizontal-flex" style="align-items:flex-start;">
-    <!-- Do NOT touch this card, as requested -->
-    <div style="
-      background-image: url('assets/images/flores2.png');
-      background-size: cover;
-      background-position: center;
-      border-radius: 60px;
-      padding: 50px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      width: 900px;
-      min-width: 320px;
-      position: relative;
-      animation: fadeInUp 1s ease-out;">
-      <div id="carousel-container" style="position: relative; width: 100%; height: 650px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-        <img id="left-img" style="position: absolute; width: 220px; height: 220px; top: 215px; left: 35px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s; z-index: 1;">
-        <img id="right-img" style="position: absolute; width: 220px; height: 220px; top: 215px; right: 35px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s; z-index: 1;">
-        <img id="center-img" style="position: relative; width: 500px; height: 500px; filter: drop-shadow(0 35px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s ease; z-index: 2;">
-        <button onclick="prevImage()" onmouseover="this.style.background='rgba(194,24,91,0.9)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='black'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 12px; border: none; padding: 12px 15px; cursor: pointer; z-index: 3; font-size: 1.3rem; transition: all 0.3s;">❮</button>
-        <button onclick="nextImage()" onmouseover="this.style.background='rgba(194,24,91,0.9)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='black'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 12px; border: none; padding: 12px 15px; cursor: pointer; z-index: 3; font-size: 1.3rem; transition: all 0.3s;">❯</button>
-      </div>
-    </div>
-    <!-- Love Letter -->
-    <div class="love-letter">
-      <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
-      <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
-      <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
-      <p>Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
-      <div class="love-letter-signature">Com amor, Elaine & Filipe ❤️</div>
-    </div>
+  <h1 class="couple-names">Elaine <span class="name-separator">&</span> Filipe</h1>
+  <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 70vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease;">
+    <img id="left-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" onclick="prevImage()">
+    <img id="center-img" class="carousel-center" style="width: 400px; height: 600px; object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
+    <img id="right-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" onclick="nextImage()">
+    <button onclick="prevImage()" onmouseover="this.style.background='rgba(194,24,91,0.95)'; this.style.transform='translateY(-50%) scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.92)'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border-radius: 50%; border: none; width: 55px; height: 55px; cursor: pointer; z-index: 3; font-size: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); color: #333;">❮</button>
+    <button onclick="nextImage()" onmouseover="this.style.background='rgba(194,24,91,0.95)'; this.style.transform='translateY(-50%) scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.92)'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border-radius: 50%; border: none; width: 55px; height: 55px; cursor: pointer; z-index: 3; font-size: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); color: #333;">❯</button>
   </div>
 </section>
 
-<section id="donations" class="section-fade" style="position: relative; overflow: hidden; height: 100vh;">
+<section id="love-story" class="section-fade">
+  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
+  <h1 class="section-title">Nossa História de Amor</h1>
+  <div class="love-letter">
+    <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
+    <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
+    <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
+    <p>Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
+    <div class="love-letter-signature">Com amor, Elaine & Filipe ❤️</div>
+  </div>
+</section>
+
+<section id="donations" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
   <h1 class="section-title" style="margin-bottom: 1.5rem;">Faça parte com sua ajuda ❤️</h1>
   <div class="donations-flexrow">
@@ -518,7 +800,7 @@
       <!-- GIFT CARD -->
       <div class="donation-board">
         <img class="icon" src="assets/images/iconGifts.png" alt="Lista de Presentes">
-        <a class="donation-btn" href="https://docs.google.com/spreadsheets/d/1HJ6mrfA009vkbT1O6rHSrbi-En7--AT1SVjQhQbHG8E/edit?usp=sharing" target="_blank">Ver Lista de Presentes</a>
+        <a class="donation-btn" href="https://www.amazon.com.br/hz/wishlist/ls/1CWJZ7I2NHRFU?ref_=wl_share" target="_blank">Ver Lista de Presentes</a>
       </div>
       <!-- HONEYMOON CARD -->
       <div class="donation-board">
@@ -536,7 +818,7 @@
   </div>
 </section>
 
-<section id="invites" class="section-fade" style="position: relative; overflow: hidden; min-height: 100vh; height: auto; padding: 3rem 2rem;">
+<section id="venue-info" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
   <div class="countdown-card">
@@ -545,51 +827,52 @@
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
-  <div class="invitation-card" style="text-align:center; max-width: 950px;">
+  <div class="invitation-card" style="text-align:center; max-width: 900px; width: 90%;">
     <!-- Highlighted Venue Info -->
-    <div style="background: linear-gradient(135deg, rgba(194,24,91,0.1) 0%, rgba(59,39,82,0.1) 100%); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; border: 2px solid rgba(194,24,91,0.3);">
-      <h2 style="margin-top:0; margin-bottom:1rem; text-align:center; font-size:2.3rem; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">📍 Local da Cerimônia</h2>
-      <h3 style="font-size:2rem; margin-bottom:1.5rem;"><a href="https://www.instagram.com/maisongarden_" target="_blank" style="text-decoration: none; color: var(--accent);">Maison Garden</a></h3>
-      <div style="width:100%; max-width:800px; margin:0 auto 2rem; border-radius:16px; overflow:hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2);">
+    <div style="background: linear-gradient(135deg, rgba(194,24,91,0.1) 0%, rgba(59,39,82,0.1) 100%); padding: 1.5rem; border-radius: 20px; border: 2px solid rgba(194,24,91,0.3);">
+      <h2 style="margin-top:0; margin-bottom:0.8rem; text-align:center; font-size:2.2rem; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">📍 Local da Cerimônia</h2>
+      <h3 style="font-size:1.8rem; margin-bottom:1.2rem;"><a href="https://www.instagram.com/maisongarden_" target="_blank" style="text-decoration: none; color: var(--accent);">Maison Garden</a></h3>
+      <div style="width:100%; max-width:700px; margin:0 auto 1.5rem; border-radius:16px; overflow:hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2);">
         <iframe
           src="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro&output=embed"
           width="100%"
-          height="350"
+          height="280"
           style="border:0; display:block;"
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <div style="background: rgba(255,255,255,0.8); padding: 1.5rem; border-radius: 12px; display: inline-block; text-align: left; max-width: 600px;">
-        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
-        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
-        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent);">(Por favor chegar antes ❤️)</span></p>
+      <div style="background: rgba(255,255,255,0.85); padding: 1.2rem 1.5rem; border-radius: 12px; display: inline-block; text-align: left; max-width: 600px;">
+        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
+        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
+        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent);">(Por favor chegar antes ❤️)</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dress-code" class="section-fade">
+  <div class="background-layer" style="background-image: url('assets/images/Pose4.jpg');"></div>
+  <h1 class="section-title">Dress Code</h1>
+  <div style="margin-top: 2rem; padding: 3rem; background: rgba(255,255,255,0.88); border-radius: 25px; max-width: 1100px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+    <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.5rem; color: var(--accent);">👔 Esporte Fino</h2>
+    <p style="font-size:1.3rem; margin-bottom: 2.5rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
+
+    <!-- Men's Examples -->
+    <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
+      <div style="flex: 1; min-width: 300px; max-width: 400px;">
+        <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      </div>
+      <div style="flex: 1; min-width: 300px; max-width: 400px;">
+        <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
       </div>
     </div>
 
-    <!-- Dress Code Section -->
-    <div style="margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.5); border-radius: 20px;">
-      <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.2rem; color: var(--accent);">👔 Dress Code: Esporte Fino</h2>
-      <p style="font-size:1.2rem; margin-bottom: 2rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
-
-      <!-- Men's Examples -->
-      <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
-        <div style="flex: 1; min-width: 280px; max-width: 350px;">
-          <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          <p style="margin-top: 1rem; font-size: 1.1rem; font-weight: 600;">Terno completo com tênis branco</p>
-        </div>
-        <div style="flex: 1; min-width: 280px; max-width: 350px;">
-          <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          <p style="margin-top: 1rem; font-size: 1.1rem; font-weight: 600;">Camisa social e calça de alfaiataria</p>
-        </div>
-      </div>
-
-      <!-- Ladies Placeholder -->
-      <div style="margin-top: 3rem; padding: 2rem; background: rgba(194,24,91,0.05); border-radius: 16px; border: 2px dashed rgba(194,24,91,0.3);">
-        <h3 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem;">👗 Inspirações para as Damas</h3>
-        <p style="font-size: 1.15rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
-      </div>
+    <!-- Ladies Placeholder -->
+    <div style="margin-top: 3.5rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(194,24,91,0.08) 0%, rgba(59,39,82,0.08) 100%); border-radius: 20px; border: 3px dashed rgba(194,24,91,0.3);">
+      <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 1.2rem;">👗 Inspirações para as Damas</h3>
+      <p style="font-size: 1.2rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
     </div>
   </div>
 </section>
@@ -601,7 +884,7 @@
 
 <script>
   // Improved Carousel with Smoother Transitions
-  const images = ["PH1.jpg", "PH2.jpg", "PH3.jpg", "PH4.jpg"];
+  const images = ["Pose5.jpg", "Pose1.jpg", "Pose3.jpg", "Pose7.jpg","Pose6.jpg","Pose2.jpg"];
   let index = 0;
   let autoPlayInterval = null;
   let isTransitioning = false;
@@ -654,12 +937,80 @@
   function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 5000); }
   function stopAutoPlay() { clearInterval(autoPlayInterval); }
 
-  // Robust Audio Management
-  const audioSeekTimes = { "our-story": 20, "donations": 60, "invites": 33 };
+  // Fullscreen Carousel Functions
+  function openFullscreen() {
+    const modal = document.getElementById('carousel-fullscreen-modal');
+    const fullscreenImg = document.getElementById('fullscreen-carousel-img');
+    const centerImg = document.getElementById('center-img');
+
+    fullscreenImg.src = centerImg.src;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFullscreen() {
+    const modal = document.getElementById('carousel-fullscreen-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on click outside or escape key
+  document.getElementById('carousel-fullscreen-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeFullscreen();
+  });
+
+  document.getElementById('close-fullscreen').addEventListener('click', closeFullscreen);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeFullscreen();
+  });
+
+  // Audio Permission Functions
+  let audioMuted = false;
+  let audioPermissionGiven = false;
+
+  function showAudioPermission() {
+    const bubble = document.getElementById('audio-permission');
+    bubble.classList.add('active');
+  }
+
+  function hideAudioPermission() {
+    const bubble = document.getElementById('audio-permission');
+    bubble.classList.remove('active');
+  }
+
+  function allowAudio() {
+    audioPermissionGiven = true;
+    audioMuted = false;
+    hideAudioPermission();
+    enableAudio();
+  }
+
+  function muteAudio() {
+    audioPermissionGiven = true;
+    audioMuted = true;
+    hideAudioPermission();
+    // Stop all audio
+    Object.values(audios).forEach(audio => {
+      audio.pause();
+      audio.volume = 0;
+    });
+  }
+
+  // Robust Audio Management - Updated for 5 sections
+  const audioSeekTimes = {
+    "our-story": 20,
+    "love-story": 40,
+    "donations": 60,
+    "venue-info": 33,
+    "dress-code": 50
+  };
   const audios = {
     "our-story": document.getElementById('story-audio'),
+    "love-story": document.getElementById('story-audio'),
     "donations": document.getElementById('donation-audio'),
-    "invites": document.getElementById('invites-audio')
+    "venue-info": document.getElementById('invites-audio'),
+    "dress-code": document.getElementById('invites-audio')
   };
   let currentPlayingSection = null;
   let debounceTimeout = null;
@@ -698,20 +1049,29 @@
     if (!audio) return;
     clearFadeInterval(sectionId);
 
-    // Set seek time if provided
+    audio.volume = 0;
+
+    // Set seek time before playing
     if (seekTime !== null && !isNaN(seekTime)) {
       try {
-        audio.currentTime = seekTime;
+        if (audio.readyState >= 2) {
+          audio.currentTime = seekTime;
+        }
       } catch (e) {
         console.log('Seek not ready yet');
       }
     }
 
-    audio.volume = 0;
     const playPromise = audio.play();
 
     if (playPromise !== undefined) {
       playPromise.then(() => {
+        // Double check we're still on this section
+        if (currentPlayingSection !== sectionId) {
+          audio.pause();
+          return;
+        }
+
         const step = 1 / (duration / 50);
         fadeIntervals[sectionId] = setInterval(() => {
           if (audio.volume < 1 - step) {
@@ -752,37 +1112,60 @@
   function switchAudio(newSectionId) {
     if (!newSectionId || newSectionId === currentPlayingSection) return;
 
-    // Fade out current audio
-    if (currentPlayingSection && audios[currentPlayingSection]) {
-      fadeOut(audios[currentPlayingSection], currentPlayingSection);
+    // Get unique audios (since some sections share the same audio)
+    const previousAudio = currentPlayingSection ? audios[currentPlayingSection] : null;
+    const newAudio = audios[newSectionId];
+
+    // If switching to same audio file, just update current section
+    if (previousAudio === newAudio && previousAudio !== null) {
+      currentPlayingSection = newSectionId;
+      return;
     }
 
-    // Fade in new audio after a brief delay
-    const newAudio = audios[newSectionId];
+    // Pause all audios first to avoid conflicts
+    Object.keys(audios).forEach(key => {
+      if (audios[key] !== newAudio) {
+        const audio = audios[key];
+        if (audio && !audio.paused) {
+          fadeOut(audio, key, 500);
+        }
+      }
+    });
+
+    // Fade in new audio after brief delay
     if (newAudio) {
       setTimeout(() => {
-        fadeIn(newAudio, newSectionId, 700, audioSeekTimes[newSectionId]);
+        // Ensure this audio is not already playing
+        if (newAudio.paused || newAudio.volume === 0) {
+          fadeIn(newAudio, newSectionId, 800, audioSeekTimes[newSectionId]);
+        }
         currentPlayingSection = newSectionId;
-      }, 300);
+      }, 400);
     }
   }
 
-  // Scroll handler with debounce
+  // Scroll handler with debounce - improved for better section detection
   document.addEventListener("scroll", () => {
-    if (!userInteracted) return;
+    if (audioMuted || !audioPermissionGiven) return;
+
+    // Enable audio interaction on first scroll
+    if (!userInteracted) {
+      userInteracted = true;
+    }
 
     if (debounceTimeout) clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
       const activeSection = getActiveSection();
-      if (activeSection) {
+      if (activeSection && activeSection !== currentPlayingSection) {
+        console.log('Switching to section:', activeSection); // Debug log
         switchAudio(activeSection);
       }
-    }, 400);
-  });
+    }, 200); // Faster response for audio switching
+  }, { passive: true });
 
   // Enable audio on user interaction
   function enableAudio() {
-    if (!userInteracted) {
+    if (!userInteracted && !audioMuted && audioPermissionGiven) {
       userInteracted = true;
       const activeSection = getActiveSection();
       if (activeSection) {
@@ -791,13 +1174,103 @@
     }
   }
 
-  document.addEventListener('click', enableAudio, { once: true });
-  document.addEventListener('touchstart', enableAudio, { once: true });
-  document.addEventListener('keydown', enableAudio, { once: true });
+  // Simple fade-in observer
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+      }
+    });
+  }, {
+    threshold: 0.2
+  });
+
+  // Smooth scroll enhancement - ALWAYS center on nearest section with directional bias
+  let scrollTimeout;
+  let isScrolling = false;
+  let lastScrollY = window.scrollY;
+  let scrollDirection = 0; // 1 for down, -1 for up
+
+  window.addEventListener('scroll', () => {
+    // Detect scroll direction
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY) {
+      scrollDirection = 1; // scrolling down
+    } else if (currentScrollY < lastScrollY) {
+      scrollDirection = -1; // scrolling up
+    }
+    lastScrollY = currentScrollY;
+
+    if (!isScrolling) {
+      isScrolling = true;
+    }
+
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      isScrolling = false;
+
+      // Always snap to nearest section center after scroll stops
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      let closestSection = null;
+      let closestDistance = Infinity;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const sectionCenter = rect.top + window.scrollY + rect.height / 2;
+        let distance = Math.abs(scrollPosition - sectionCenter);
+
+        // Add slight bias in scroll direction to make it less sticky
+        // If scrolling down and this section is below, reduce distance slightly
+        // If scrolling up and this section is above, reduce distance slightly
+        const sectionRelativePosition = sectionCenter - scrollPosition;
+        if ((scrollDirection > 0 && sectionRelativePosition > 0) ||
+            (scrollDirection < 0 && sectionRelativePosition < 0)) {
+          distance *= 0.85; // 15% bias towards scroll direction
+        }
+
+        // Find closest section with directional bias
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = section;
+        }
+      });
+
+      // ALWAYS center if we found a section
+      if (closestSection) {
+        const rect = closestSection.getBoundingClientRect();
+        const sectionCenter = rect.top + window.scrollY + rect.height / 2;
+        const targetScroll = sectionCenter - window.innerHeight / 2;
+
+        // Only scroll if we're not already very close
+        if (Math.abs(window.scrollY - targetScroll) > 10) {
+          window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      scrollDirection = 0; // Reset direction after centering
+    }, 100); // Balanced trigger time
+  }, { passive: true });
 
   window.onload = function() {
     updateCarousel();
     startAutoPlay();
+
+    // Observe all sections for fade-in
+    sections.forEach((section, index) => {
+      sectionObserver.observe(section);
+      // Initial state - only hide non-first sections
+      if (index > 0) {
+        section.style.opacity = '0';
+        section.style.transition = 'opacity 0.5s ease';
+      }
+    });
+
+    // Show audio permission bubble after 1 second
+    setTimeout(showAudioPermission, 1000);
   };
 
   // Countdown
