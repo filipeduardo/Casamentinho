@@ -22,6 +22,7 @@
       height: 100%;
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
+      scroll-behavior: smooth;
     }
     section {
       scroll-snap-align: start;
@@ -36,10 +37,12 @@
     .section-title {
       font-family: 'Dancing Script', cursive;
       color: var(--accent);
-      font-size: 2.7rem;
-      margin-bottom: 1.2rem;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
       letter-spacing: 1px;
       text-align: center;
+      animation: scaleIn 1s ease-out;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
     }
     h2, h3 {
       font-family: 'Dancing Script', cursive;
@@ -54,43 +57,156 @@
       line-height: 1.7;
       margin-bottom: 0.6em;
     }
-    /* Unified Card Styles */
+    /* Keyframe Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes fadeInLetter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .love-letter {
+      position: relative;
+      background: linear-gradient(to bottom, #fffef7 0%, #faf9f0 100%);
+      padding: 3rem 2.5rem;
+      border-radius: 8px;
+      box-shadow: 
+        0 1px 3px rgba(0,0,0,0.12),
+        0 10px 20px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+      border: 1px solid #e8e6d8;
+      max-width: 800px;
+      margin: 1.5rem 0;
+      animation: fadeInLetter 1.2s ease-out;
+      background-image: 
+        repeating-linear-gradient(
+          transparent,
+          transparent 31px,
+          #d4d1c0 31px,
+          #d4d1c0 32px
+        );
+      background-attachment: local;
+      line-height: 32px !important;
+    }
+
+    .love-letter::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 80px;
+      width: 2px;
+      height: 100%;
+      background: #f0d6d8;
+    }
+
+    .love-letter p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      line-height: 32px;
+      color: #2c2416;
+      margin: 0;
+      padding-left: 0;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInLetter 1.5s ease-out;
+    }
+
+    .love-letter-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      text-align: right;
+      margin-top: 2rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Unified Card Styles - Larger and More Beautiful */
     .card, .donation-board, .invitation-card, .text-card, .countdown-card {
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(6px);
-      border-radius: 1.3rem;
-      box-shadow: 0 4px 18px rgba(59,39,82,0.08);
-      border: 1.5px solid #f7e6ee;
-      padding: 1.7rem 1.6rem;
-      margin: 1rem 0;
-      max-width: 650px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      box-shadow: 0 6px 24px rgba(59,39,82,0.12);
+      border: 2px solid #f7e6ee;
+      padding: 2.2rem 2rem;
+      margin: 1.5rem 0;
+      max-width: 800px;
+      width: 90%;
       color: var(--dark-main);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-family: 'Segoe UI', Arial, sans-serif;
+      animation: fadeInUp 0.8s ease-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover, .donation-board:hover, .invitation-card:hover, .text-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(59,39,82,0.18);
     }
     .countdown-card {
       text-align: center;
-      font-size: 2.1rem;
+      font-size: 2.5rem;
       font-weight: 600;
       color: var(--accent);
-      padding: 1rem 1em;
+      padding: 2rem 2.5rem;
       letter-spacing: 0.1px;
-      border-radius: 1.4rem;
-      box-shadow: 0 4px 18px rgba(59,39,82,0.14);
-      border: 1.5px solid #f7e6ee;
-      margin-bottom: 2rem;
+      border-radius: 1.6rem;
+      box-shadow: 0 8px 28px rgba(59,39,82,0.18);
+      border: 2px solid #f7e6ee;
+      margin-bottom: 2.5rem;
+      max-width: 900px;
+      animation: scaleIn 1.2s ease-out;
+      transition: transform 0.3s ease;
+    }
+    .countdown-card:hover {
+      transform: scale(1.02);
     }
     .countdown-card .countdown-value {
       color: var(--accent);
-      font-size: 2.3rem;
+      font-size: 3rem;
       font-weight: 700;
-      margin: 0 0.2em;
+      margin: 0 0.3em;
     }
     .countdown-card .countdown-label {
       color: var(--dark-main);
-      font-size: 1.15rem;
+      font-size: 1.3rem;
       font-weight: 600;
-      margin: 0 0.18em;
+      margin: 0 0.25em;
     }
     /* Donations section new flex and board */
     .donations-flexrow {
@@ -111,58 +227,72 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      min-width: 310px;
-      max-width: 380px;
+      min-width: 360px;
+      max-width: 450px;
       width: 100%;
-      background: rgba(255,255,255,0.93);
-      border-radius: 1.2rem;
-      box-shadow: 0 4px 18px rgba(59,39,82,0.08);
-      border: 1.5px solid #f7e6ee;
-      padding: 2.1rem 1.4rem 1.5rem 1.4rem;
-      margin: 0.7rem 0;
+      background: rgba(255,255,255,0.95);
+      border-radius: 1.5rem;
+      box-shadow: 0 6px 24px rgba(59,39,82,0.12);
+      border: 2px solid #f7e6ee;
+      padding: 2.8rem 2rem 2rem 2rem;
+      margin: 1rem 0;
       box-sizing: border-box;
+      animation: fadeInUp 1s ease-out;
     }
     #donations .donation-board img.icon {
-      width: 86px;
-      height: 86px;
-      margin-bottom: 1.1rem;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    #donations .donation-board:hover img.icon {
+      transform: scale(1.1) rotate(5deg);
     }
     #donations .donation-board .donation-title {
-      font-size: 1.18rem;
+      font-size: 1.35rem;
       color: var(--accent);
       font-weight: 600;
-      margin-bottom: 0.5em;
+      margin-bottom: 0.7em;
       text-align: center;
     }
     #donations .donation-board .donation-btn {
-      width: 88%;
-      max-width: 180px;
-      margin-top: 0.8em;
+      width: 90%;
+      max-width: 220px;
+      margin-top: 1em;
       text-align: center;
+      font-size: 1.1rem;
+      padding: 0.5em 1.5em;
     }
     #donations .donation-board.qr {
-      padding: 2.1rem 1.4rem 2.1rem 1.4rem;
+      padding: 2.8rem 2rem 2.5rem 2rem;
     }
     #donations .donation-board.qr img.qr {
-      width: 240px;
-      height: 250px;
-      margin: 1rem 0 0 0;
-      border-radius: 1rem;
-      border: 2px solid #f7e6ee;
+      width: 300px;
+      height: 310px;
+      margin: 1.5rem 0 0 0;
+      border-radius: 1.2rem;
+      border: 3px solid #f7e6ee;
       background: #fff;
+      transition: transform 0.3s ease;
+    }
+    #donations .donation-board.qr:hover img.qr {
+      transform: scale(1.05);
     }
     #donations .donation-board.qr .donation-title {
       color: var(--accent);
-      font-size: 1.11rem;
+      font-size: 1.25rem;
       font-weight: 500;
-      margin-bottom: 0.1rem;
+      margin-bottom: 0.3rem;
     }
     .donation-qr-with-margin {
       /* Default no extra margin on desktop */
       margin-bottom: 0;
     }
-    /* Responsive: stack vertically + add bottom margin to QR code */
+    /* Comprehensive Mobile Responsiveness */
     @media (max-width: 900px) {
+      .section-title {
+        font-size: 2.8rem;
+      }
       .donations-flexrow {
         flex-direction: column;
         align-items: center;
@@ -172,8 +302,118 @@
         margin-bottom: 2.2rem;
       }
       #donations .donation-board {
-        width: 96vw !important;
-        max-width: 99vw !important;
+        width: 90vw !important;
+        max-width: 500px !important;
+        min-width: unset !important;
+      }
+      .card, .donation-board, .invitation-card, .text-card, .countdown-card {
+        width: 90vw;
+        max-width: 500px;
+        padding: 1.8rem 1.5rem;
+      }
+      .countdown-card {
+        font-size: 1.8rem;
+        padding: 1.5rem 1.2rem;
+      }
+      .countdown-card .countdown-value {
+        font-size: 2.2rem;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1.1rem;
+      }
+      .horizontal-flex {
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2.5rem;
+      }
+      /* Carousel adjustments for mobile - larger size */
+      div[style*="width: 900px"] {
+        width: 95vw !important;
+        max-width: 550px !important;
+        padding: 30px !important;
+      }
+      #carousel-container {
+        height: 450px !important;
+      }
+      #center-img {
+        width: 320px !important;
+        height: 320px !important;
+      }
+      #left-img, #right-img {
+        width: 140px !important;
+        height: 140px !important;
+        top: 155px !important;
+      }
+      #left-img {
+        left: 15px !important;
+      }
+      #right-img {
+        right: 15px !important;
+      }
+      .love-letter {
+        font-size: 1.2rem !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .love-letter p {
+        font-size: 1.3rem !important;
+      }
+      #donations .donation-board img.icon {
+        width: 90px;
+        height: 90px;
+      }
+      #donations .donation-board.qr img.qr {
+        width: 260px;
+        height: 270px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 2.2rem;
+      }
+      .countdown-card {
+        font-size: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .countdown-card .countdown-value {
+        font-size: 1.9rem;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1rem;
+      }
+      div[style*="width: 900px"] {
+        padding: 20px !important;
+      }
+      #carousel-container {
+        height: 380px !important;
+      }
+      #center-img {
+        width: 260px !important;
+        height: 260px !important;
+      }
+      #left-img, #right-img {
+        width: 110px !important;
+        height: 110px !important;
+        top: 135px !important;
+      }
+      .love-letter {
+        padding: 1.8rem 1.2rem !important;
+      }
+      .love-letter p {
+        font-size: 1.2rem !important;
+        line-height: 28px !important;
+      }
+      .love-letter-signature {
+        font-size: 1.5rem !important;
+      }
+      #donations .donation-board.qr img.qr {
+        width: 220px;
+        height: 230px;
       }
     }
     /* Section backgrounds */
@@ -207,20 +447,26 @@
     a, .btn {
       color: var(--light-main) !important;
       background: var(--accent);
-      padding: 0.32em 1.15em;
+      padding: 0.5em 1.5em;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       display: inline-block;
-      margin-top: 0.2em;
-      font-size: 1.02rem;
-      transition: background 0.2s;
+      margin-top: 0.5em;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
       border: none;
       cursor: pointer;
+      box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
     }
     a:hover, .btn:hover {
       background: #99204a;
       color: var(--light-main) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(194, 24, 91, 0.4);
+    }
+    a:active, .btn:active {
+      transform: translateY(0);
     }
     /* Scrollbar */
     ::-webkit-scrollbar { width: 10px; background: #f1e6f5; }
@@ -239,25 +485,27 @@
       background-size: cover;
       background-position: center;
       border-radius: 60px;
-      padding: 30px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      width: 600px;
-      min-width: 300px;
-      position: relative;">
-      <div id="carousel-container" style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-        <img id="left-img" style="position: absolute; width: 150px; height: 150px; top: 125px; left: 20px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5)); border-radius: 30px; transition: all 0.5s; z-index: 1;">
-        <img id="right-img" style="position: absolute; width: 150px; height: 150px; top: 125px; right: 20px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 10px rgba(0,0,0,0.5)); border-radius: 30px; transition: all 0.5s; z-index: 1;">
-        <img id="center-img" style="position: relative; width: 300px; height: 300px; filter: drop-shadow(0 31px 10px rgba(0,0,0,0.5)); border-radius: 30px; transition: all 0.5s ease; z-index: 2;">
-        <button onclick="prevImage()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border-radius: 10px; border: none; padding: 10px; cursor: pointer; z-index: 3;">❮</button>
-        <button onclick="nextImage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border-radius: 10px; border: none; padding: 10px; cursor: pointer; z-index: 3;">❯</button>
+      padding: 50px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      width: 900px;
+      min-width: 320px;
+      position: relative;
+      animation: fadeInUp 1s ease-out;">
+      <div id="carousel-container" style="position: relative; width: 100%; height: 650px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+        <img id="left-img" style="position: absolute; width: 220px; height: 220px; top: 215px; left: 35px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s; z-index: 1;">
+        <img id="right-img" style="position: absolute; width: 220px; height: 220px; top: 215px; right: 35px; filter: blur(6px) brightness(70%) drop-shadow(0 20px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s; z-index: 1;">
+        <img id="center-img" style="position: relative; width: 500px; height: 500px; filter: drop-shadow(0 35px 15px rgba(0,0,0,0.5)); border-radius: 40px; transition: all 0.5s ease; z-index: 2;">
+        <button onclick="prevImage()" onmouseover="this.style.background='rgba(194,24,91,0.9)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='black'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 12px; border: none; padding: 12px 15px; cursor: pointer; z-index: 3; font-size: 1.3rem; transition: all 0.3s;">❮</button>
+        <button onclick="nextImage()" onmouseover="this.style.background='rgba(194,24,91,0.9)'; this.style.color='white'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.color='black'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.9); border-radius: 12px; border: none; padding: 12px 15px; cursor: pointer; z-index: 3; font-size: 1.3rem; transition: all 0.3s;">❯</button>
       </div>
     </div>
-    <!-- Harmonized text card -->
-    <div class="text-card" style="font-family:'Dancing Script',cursive; font-size:1.25rem; line-height:2rem; background-image: url('assets/images/offwhite_paper_background.png'); background-repeat: repeat;">
-      <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.<br>
-      Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.<br>
-      Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.<br>
-      Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
+    <!-- Love Letter -->
+    <div class="love-letter">
+      <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
+      <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
+      <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
+      <p>Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
+      <div class="love-letter-signature">Com amor, Elaine & Filipe ❤️</div>
     </div>
   </div>
 </section>
@@ -288,7 +536,7 @@
   </div>
 </section>
 
-<section id="invites" class="section-fade" style="position: relative; overflow: hidden; height: 100vh;">
+<section id="invites" class="section-fade" style="position: relative; overflow: hidden; min-height: 100vh; height: auto; padding: 3rem 2rem;">
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
   <div class="countdown-card">
@@ -297,23 +545,52 @@
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
-  <div class="invitation-card" style="text-align:center;">
-    <h2 style="margin-top:0; margin-bottom:1rem; text-align:center;">Local da Cerimônia: <a href="https://www.instagram.com/maisongarden_" target="_blank" >Maison Garden</a></h2>
-    <div style="width:100%; max-width:600px; margin:0 auto 1.5rem; border-radius:14px; overflow:hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.13);">
-      <iframe
-        src="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro&output=embed"
-        width="100%"
-        height="220"
-        style="border:0; display:block;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+  <div class="invitation-card" style="text-align:center; max-width: 950px;">
+    <!-- Highlighted Venue Info -->
+    <div style="background: linear-gradient(135deg, rgba(194,24,91,0.1) 0%, rgba(59,39,82,0.1) 100%); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; border: 2px solid rgba(194,24,91,0.3);">
+      <h2 style="margin-top:0; margin-bottom:1rem; text-align:center; font-size:2.3rem; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">📍 Local da Cerimônia</h2>
+      <h3 style="font-size:2rem; margin-bottom:1.5rem;"><a href="https://www.instagram.com/maisongarden_" target="_blank" style="text-decoration: none; color: var(--accent);">Maison Garden</a></h3>
+      <div style="width:100%; max-width:800px; margin:0 auto 2rem; border-radius:16px; overflow:hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2);">
+        <iframe
+          src="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro&output=embed"
+          width="100%"
+          height="350"
+          style="border:0; display:block;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div style="background: rgba(255,255,255,0.8); padding: 1.5rem; border-radius: 12px; display: inline-block; text-align: left; max-width: 600px;">
+        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
+        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
+        <p style="margin:0.7rem 0; font-size:1.3rem;"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent);">(Por favor chegar antes ❤️)</span></p>
+      </div>
     </div>
-    <p style="margin:0.8rem 0 0 0;"><b>Data:</b> 27/12/2025</p>
-    <p style="margin:0.3rem 0 0 0;"><b>Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
-    <p style="margin:0.3rem 0 0 0;"><b>Horário:</b> 16:00h (Por favor chegar antes ❤️)</p>
-    <p style="margin:0.3rem 0 1rem 0;"><b>Dress code:</b> Esporte Fino</p>
+    
+    <!-- Dress Code Section -->
+    <div style="margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.5); border-radius: 20px;">
+      <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.2rem; color: var(--accent);">👔 Dress Code: Esporte Fino</h2>
+      <p style="font-size:1.2rem; margin-bottom: 2rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
+      
+      <!-- Men's Examples -->
+      <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+        <div style="flex: 1; min-width: 280px; max-width: 350px;">
+          <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <p style="margin-top: 1rem; font-size: 1.1rem; font-weight: 600;">Terno completo com tênis branco</p>
+        </div>
+        <div style="flex: 1; min-width: 280px; max-width: 350px;">
+          <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          <p style="margin-top: 1rem; font-size: 1.1rem; font-weight: 600;">Camisa social e calça de alfaiataria</p>
+        </div>
+      </div>
+      
+      <!-- Ladies Placeholder -->
+      <div style="margin-top: 3rem; padding: 2rem; background: rgba(194,24,91,0.05); border-radius: 16px; border: 2px dashed rgba(194,24,91,0.3);">
+        <h3 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1rem;">👗 Inspirações para as Damas</h3>
+        <p style="font-size: 1.15rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -323,119 +600,205 @@
 <audio id="invites-audio" src="assets/audio/Turning_Page.mp3" preload="auto" loop></audio>
 
 <script>
-  // Carousel logic unchanged
+  // Improved Carousel with Smoother Transitions
   const images = ["PH1.jpg", "PH2.jpg", "PH3.jpg", "PH4.jpg"];
   let index = 0;
   let autoPlayInterval = null;
+  let isTransitioning = false;
+
   function updateCarousel() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
     const left = document.getElementById("left-img");
     const center = document.getElementById("center-img");
     const right = document.getElementById("right-img");
+
+    // Smooth fade and scale transition
+    center.style.transition = "opacity 0.4s ease, transform 0.4s ease";
     center.style.opacity = "0";
-    center.style.transform = "scale(0.95)";
+    center.style.transform = "scale(0.92)";
+
     setTimeout(() => {
+      // Update image sources
       left.src = "assets/images/" + images[(index - 1 + images.length) % images.length];
       center.src = "assets/images/" + images[index];
       right.src = "assets/images/" + images[(index + 1) % images.length];
-      center.style.opacity = "1";
-      center.style.transform = "scale(1)";
-    }, 150);
+
+      // Fade back in with smooth transition
+      setTimeout(() => {
+        center.style.opacity = "1";
+        center.style.transform = "scale(1)";
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 400);
+      }, 50);
+    }, 400);
   }
-  function nextImage() { index = (index + 1) % images.length; updateCarousel(); }
-  function prevImage() { index = (index - 1 + images.length) % images.length; updateCarousel(); }
-  function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 4000); }
+
+  function nextImage() {
+    if (!isTransitioning) {
+      index = (index + 1) % images.length;
+      updateCarousel();
+    }
+  }
+
+  function prevImage() {
+    if (!isTransitioning) {
+      index = (index - 1 + images.length) % images.length;
+      updateCarousel();
+    }
+  }
+
+  function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 5000); }
   function stopAutoPlay() { clearInterval(autoPlayInterval); }
 
-  // Audio section logic unchanged
+  // Robust Audio Management
   const audioSeekTimes = { "our-story": 20, "donations": 60, "invites": 33 };
   const audios = {
     "our-story": document.getElementById('story-audio'),
     "donations": document.getElementById('donation-audio'),
     "invites": document.getElementById('invites-audio')
   };
-  const audioReady = {};
-  let pendingSectionToPlay = null, currentPlayingSection = "", debounceTimeout = null;
+  let currentPlayingSection = null;
+  let debounceTimeout = null;
+  let userInteracted = false;
+  let fadeIntervals = {};
   const sections = document.querySelectorAll("section");
-  function fadeOut(audio, duration = 1000) {
-    let step = audio.volume / (duration / 50);
-    let fade = setInterval(() => {
-      if (audio.volume > step) audio.volume -= step;
-      else { audio.volume = 0; audio.pause(); clearInterval(fade); }
-    }, 50);
-  }
-  function fadeIn(audio, duration = 1000, seekTime = null) {
-    audio.muted = false;
-    if (seekTime !== null && !isNaN(seekTime)) {
-      if (audio.readyState > 0) audio.currentTime = seekTime;
-      else audio.addEventListener('canplaythrough', () => { audio.currentTime = seekTime; }, { once: true });
+
+  // Clear any existing fade interval
+  function clearFadeInterval(sectionId) {
+    if (fadeIntervals[sectionId]) {
+      clearInterval(fadeIntervals[sectionId]);
+      delete fadeIntervals[sectionId];
     }
-    audio.volume = 0;
-    let playPromise = audio.play();
-    if (playPromise !== undefined) playPromise.catch(() => {});
-    let step = 1 / (duration / 50);
-    let fade = setInterval(() => {
-      if (audio.volume < 1 - step) audio.volume += step;
-      else { audio.volume = 1; clearInterval(fade); }
-    }, 50);
   }
-  Object.keys(audios).forEach(sectionId => {
-    audios[sectionId].addEventListener('canplaythrough', () => {
-      audioReady[sectionId] = true;
-      if (pendingSectionToPlay === sectionId && isSectionActive(sectionId)) {
-        fadeIn(audios[sectionId], 1000, audioSeekTimes[sectionId]);
-        currentPlayingSection = sectionId;
-        pendingSectionToPlay = null;
-      }
-    });
-  });
-  function isSectionActive(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (!section) return false;
-    const rect = section.getBoundingClientRect();
-    return (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2);
-  }
-  function playAudioFor(sectionId) {
-    if (sectionId === currentPlayingSection) return;
-    pendingSectionToPlay = sectionId;
-    if (currentPlayingSection && audios[currentPlayingSection]) fadeOut(audios[currentPlayingSection]);
-    const newAudio = audios[sectionId];
-    if (newAudio) {
-      if (audioReady[sectionId] && isSectionActive(sectionId)) {
-        fadeIn(newAudio, 1000, audioSeekTimes[sectionId]);
-        currentPlayingSection = sectionId;
-        pendingSectionToPlay = null;
+
+  // Improved fade functions with cleanup
+  function fadeOut(audio, sectionId, duration = 700) {
+    if (!audio) return;
+    clearFadeInterval(sectionId);
+    
+    const startVolume = audio.volume;
+    const step = startVolume / (duration / 50);
+    
+    fadeIntervals[sectionId] = setInterval(() => {
+      if (audio.volume > step) {
+        audio.volume = Math.max(0, audio.volume - step);
       } else {
-        newAudio.addEventListener('canplaythrough', function handler() {
-          if (pendingSectionToPlay === sectionId && isSectionActive(sectionId)) {
-            fadeIn(newAudio, 1000, audioSeekTimes[sectionId]);
-            currentPlayingSection = sectionId;
-            pendingSectionToPlay = null;
-          }
-          newAudio.removeEventListener('canplaythrough', handler);
-        });
+        audio.volume = 0;
+        audio.pause();
+        clearFadeInterval(sectionId);
+      }
+    }, 50);
+  }
+
+  function fadeIn(audio, sectionId, duration = 700, seekTime = null) {
+    if (!audio) return;
+    clearFadeInterval(sectionId);
+    
+    // Set seek time if provided
+    if (seekTime !== null && !isNaN(seekTime)) {
+      try {
+        audio.currentTime = seekTime;
+      } catch (e) {
+        console.log('Seek not ready yet');
       }
     }
+
+    audio.volume = 0;
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        const step = 1 / (duration / 50);
+        fadeIntervals[sectionId] = setInterval(() => {
+          if (audio.volume < 1 - step) {
+            audio.volume = Math.min(1, audio.volume + step);
+          } else {
+            audio.volume = 1;
+            clearFadeInterval(sectionId);
+          }
+        }, 50);
+      }).catch((error) => {
+        console.log('Playback prevented:', error);
+      });
+    }
   }
-  document.addEventListener("scroll", () => {
-    let activeSection = "";
+
+  function getActiveSection() {
+    let activeSection = null;
+    let maxVisibility = 0;
+    
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
-      if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) activeSection = section.id;
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate how much of the section is visible
+      const visibleTop = Math.max(0, rect.top);
+      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      
+      if (visibleHeight > maxVisibility) {
+        maxVisibility = visibleHeight;
+        activeSection = section.id;
+      }
     });
-    if (activeSection && activeSection !== currentPlayingSection) {
-      if (debounceTimeout) clearTimeout(debounceTimeout);
-      debounceTimeout = setTimeout(() => { playAudioFor(activeSection); }, 800);
+    
+    return activeSection;
+  }
+
+  function switchAudio(newSectionId) {
+    if (!newSectionId || newSectionId === currentPlayingSection) return;
+    
+    // Fade out current audio
+    if (currentPlayingSection && audios[currentPlayingSection]) {
+      fadeOut(audios[currentPlayingSection], currentPlayingSection);
     }
+
+    // Fade in new audio after a brief delay
+    const newAudio = audios[newSectionId];
+    if (newAudio) {
+      setTimeout(() => {
+        fadeIn(newAudio, newSectionId, 700, audioSeekTimes[newSectionId]);
+        currentPlayingSection = newSectionId;
+      }, 300);
+    }
+  }
+
+  // Scroll handler with debounce
+  document.addEventListener("scroll", () => {
+    if (!userInteracted) return;
+    
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      const activeSection = getActiveSection();
+      if (activeSection) {
+        switchAudio(activeSection);
+      }
+    }, 400);
   });
+
+  // Enable audio on user interaction
+  function enableAudio() {
+    if (!userInteracted) {
+      userInteracted = true;
+      const activeSection = getActiveSection();
+      if (activeSection) {
+        switchAudio(activeSection);
+      }
+    }
+  }
+
+  document.addEventListener('click', enableAudio, { once: true });
+  document.addEventListener('touchstart', enableAudio, { once: true });
+  document.addEventListener('keydown', enableAudio, { once: true });
+
   window.onload = function() {
     updateCarousel();
     startAutoPlay();
-    currentPlayingSection = "our-story";
-    if (audioReady["our-story"]) fadeIn(audios["our-story"], 1000, audioSeekTimes["our-story"]);
-    else audios["our-story"].addEventListener('canplaythrough', () => fadeIn(audios["our-story"], 1000, audioSeekTimes["our-story"]), { once: true });
   };
-  document.addEventListener('click', () => { const firstAudio = audios[currentPlayingSection]; if (firstAudio && firstAudio.paused) fadeIn(firstAudio, 1000, audioSeekTimes[currentPlayingSection]); }, { once: true });
-  document.addEventListener('touchstart', () => { const firstAudio = audios[currentPlayingSection]; if (firstAudio && firstAudio.paused) fadeIn(firstAudio, 1000, audioSeekTimes[currentPlayingSection]); }, { once: true });
 
   // Countdown
   const weddingDate = new Date("2025-12-27T16:00:00").getTime();
