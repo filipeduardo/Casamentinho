@@ -854,7 +854,7 @@
       <!-- HONEYMOON CARD -->
       <div class="donation-board">
         <img class="icon" src="assets/images/iconResort.png" alt="Lua de Mel">
-        <a class="donation-btn" href="https://www.agenciammtour.com.br/lua-de-mel-cotas/cota/nome/eliane-filipe" target="_blank">Presentear Lua de Mel</a>
+        <a class="donation-btn" href="https://www.agenciammtour.com.br/lua-de-mel-cotas/cota/nome/elaine-filipe" target="_blank">Presentear Lua de Mel</a>
       </div>
     </div>
     <!-- QR CODE CARD -->
@@ -873,31 +873,39 @@
 <section id="venue-info" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
-  <div class="countdown-card">
+  <!-- Countdown Card - Compact -->
+  <div class="countdown-card" style="padding: 1rem 2rem; margin-bottom: 2rem;">
     <span class="countdown-label">Faltam</span>
     <span id="days" class="countdown-value">0</span><span class="countdown-label">Dias e</span>
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
-  <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 2rem; width: 90%; max-width: 1000px; flex-wrap: wrap;">
-    <!-- Venue Card -->
-    <div class="donation-board" style="min-width: 300px; flex: 1;">
-      <img class="icon" src="assets/images/iconVenue.png" alt="Local da Cerimônia" style="width: 100px; height: 100px; margin-bottom: 1.2rem;">
-      <h2 style="margin: 0.5rem 0; font-size: 2rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Local da Cerimônia</h2>
-      <h3 style="margin: 0.5rem 0 1.5rem 0; font-size: 1.6rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
-      <a class="donation-btn" href="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro" target="_blank">Ver no Google Maps</a>
-      <p style="margin:0.8rem 0; font-size:1.2rem; color: var(--dark-main);"><b>📅</b> 27 de Dezembro de 2025</p>
-      <p style="margin:0.3rem 0; font-size:1.2rem; color: var(--dark-main);"><b>📍</b> Praça Inácio do Canto, nº 9</p>
-      <p style="margin:0.3rem 0; font-size:1.2rem; color: var(--dark-main);">Madureira, Rio de Janeiro</p>
-      <p style="margin:0.8rem 0; font-size:1.2rem; color: var(--dark-main);"><b>🕓</b> 16:00h <span style="color: var(--accent); font-weight: 600;">(Chegue antes! ❤️)</span></p>
+
+  <!-- Unified Venue & Dress Code Card -->
+  <div class="donation-board" style="max-width: 700px; width: 90%; padding: 2.5rem;">
+    <!-- Venue Header with Arch Icons -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h2 style="margin: 0; font-size: 2.8rem; color: var(--accent); font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Local da Cerimônia</h2>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1rem 0;">
+        <span style="font-size: 4rem;">💒</span>
+        <h3 style="margin: 0; font-size: 3.8rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
+        <span style="font-size: 4rem;">💒</span>
+      </div>
     </div>
 
-    <!-- Dress Code Card -->
-    <div class="donation-board" style="min-width: 300px; flex: 1;">
-      <h2 style="margin: 0.5rem 0 1rem 0; font-size: 2rem; color: var(--accent); font-family: 'Dancing Script', cursive;">👔 Dress Code</h2>
-      <h3 style="margin: 0.5rem 0 1.5rem 0; font-size: 1.6rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Esporte Fino</h3>
-      <button onclick="toggleDressCode()" class="donation-btn" style="border: none; cursor: pointer;">Ver Inspirações</button>
+    <!-- Google Maps Button -->
+    <a class="donation-btn" href="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro" target="_blank" style="display: block; text-align: center; margin-bottom: 2rem;">Veja no Google Maps</a>
+
+    <!-- Event Details -->
+    <div style="background: rgba(194,24,91,0.08); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; text-align: center;">
+      <p style="margin:0.6rem 0; font-size:1.1rem; color: var(--dark-main);"><b>📅</b> 27 de Dezembro de 2025</p>
+      <p style="margin:0.6rem 0; font-size:1.1rem; color: var(--dark-main);"><b>📍</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
+      <p style="margin:0.6rem 0; font-size:1.1rem; color: var(--dark-main);"><b>👔</b> Código de Vestimenta:<span style="color: var(--accent); font-weight: 700;"> Esporte Fino</span> <b>👗</b></p>
+      <p style="margin:0.6rem 0; font-size:1.1rem; color: var(--dark-main);"><b>🕓</b> 16:30 <span style="color: var(--accent); font-weight: 600;">(Chegue antes! ❤️)</span></p>
     </div>
+
+    <!-- Dress Code Button -->
+    <a onclick="toggleDressCode()" class="donation-btn" href="#" style="display: block; text-align: center; margin-top: 2rem; cursor: pointer; text-decoration: none;">Veja Inspirações de Vestuário</a>
   </div>
 </section>
 
