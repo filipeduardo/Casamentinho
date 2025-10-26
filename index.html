@@ -961,28 +961,36 @@
 <div id="dress-code-overlay" class="section-overlay">
   <div class="overlay-content">
     <button class="overlay-close" onclick="toggleDressCode()">×</button>
-    <div style="width: 100%; max-width: 1100px; padding: 2rem; background: rgba(255,255,255,0.88); border-radius: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+    <div style="width: 100%; max-width: 1200px; padding: 2rem;">
       <h1 class="section-title" style="margin-top: 2rem;">Dress Code</h1>
-      <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.5rem; color: var(--accent);">👔 Esporte Fino</h2>
-      <p style="font-size:1.3rem; margin-bottom: 2.5rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
+      <h2 style="margin-top:0; margin-bottom:3rem; font-size:2.5rem; color: var(--accent); text-align: center;">👔 Esporte Fino 👗</h2>
 
-      <!-- Men's Examples -->
-      <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
-        <div style="flex: 1; min-width: 300px; max-width: 400px;">
-          <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <!-- Dress Code Carousel Container -->
+      <div id="dress-code-carousel" style="position: relative; width: 100%; max-width: 1000px; height: 60vh; display: flex; justify-content: center; align-items: stretch; gap: 3rem; transition: all 0.6s ease; margin: 0 auto;">
+        <!-- Gentlemen Section -->
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+          <h3 style="font-size: 1.8rem; color: var(--accent); font-family: 'Dancing Script', cursive; margin: 0;">👔 Cavalheiros</h3>
+          <div style="flex: 1; width: 100%; overflow: hidden; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+            <img id="dress-men-img" src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Cavalheiros" onclick="openDressFullscreen('men')" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+          </div>
         </div>
-        <div style="flex: 1; min-width: 300px; max-width: 400px;">
-          <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
-      </div>
 
-      <!-- Ladies Placeholder -->
-      <div style="margin-top: 3.5rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(194,24,91,0.08) 0%, rgba(59,39,82,0.08) 100%); border-radius: 20px; border: 3px dashed rgba(194,24,91,0.3);">
-        <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 1.2rem;">👗 Inspirações para as Damas</h3>
-        <p style="font-size: 1.2rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
+        <!-- Ladies Section -->
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+          <h3 style="font-size: 1.8rem; color: var(--accent); font-family: 'Dancing Script', cursive; margin: 0;">👗 Damas</h3>
+          <div style="flex: 1; width: 100%; overflow: hidden; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+            <img id="dress-ladies-img" src="assets/images/ladies-esporte-fino1.jpg" alt="Esporte Fino - Damas" onclick="openDressFullscreen('ladies')" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);">
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Dress Code Fullscreen Modal -->
+<div id="dress-fullscreen-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;">
+  <button onclick="closeDressFullscreen()" style="position: fixed; top: 2rem; right: 2rem; background: var(--accent); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 2rem; cursor: pointer; z-index: 2001; display: flex; align-items: center; justify-content: center; line-height: 1;">×</button>
+  <img id="dress-fullscreen-img" src="" alt="Fullscreen" style="max-width: 90vw; max-height: 90vh; object-fit: contain;">
 </div>
 
 <!-- Background Music -->
@@ -1039,6 +1047,96 @@
   function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 5000); }
   function stopAutoPlay() { clearInterval(autoPlayInterval); }
 
+  // Dress Code Carousel - Auto-rotating with same logic as main carousel
+  const menImages = ["esporte-fino1.jpg", "esporte-fino2.jpg"];
+  const ladiesImages = ["ladies-esporte-fino1.jpg", "ladies-esporte-fino2.jpg"];
+  
+  let menIndex = 0;
+  let ladiesIndex = 0;
+  let menTransitioning = false;
+  let ladiesTransitioning = false;
+  let dressAutoPlayInterval = null;
+
+  function updateDressMen() {
+    if (menTransitioning) return;
+    menTransitioning = true;
+
+    const img = document.getElementById("dress-men-img");
+    img.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+    img.style.opacity = "0";
+    img.style.transform = "scale(0.92)";
+
+    setTimeout(() => {
+      img.src = "assets/images/" + menImages[menIndex];
+      setTimeout(() => {
+        img.style.opacity = "1";
+        img.style.transform = "scale(1)";
+        setTimeout(() => {
+          menTransitioning = false;
+        }, 400);
+      }, 50);
+    }, 400);
+  }
+
+  function updateDressLadies() {
+    if (ladiesTransitioning) return;
+    ladiesTransitioning = true;
+
+    const img = document.getElementById("dress-ladies-img");
+    img.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+    img.style.opacity = "0";
+    img.style.transform = "scale(0.92)";
+
+    setTimeout(() => {
+      img.src = "assets/images/" + ladiesImages[ladiesIndex];
+      setTimeout(() => {
+        img.style.opacity = "1";
+        img.style.transform = "scale(1)";
+        setTimeout(() => {
+          ladiesTransitioning = false;
+        }, 400);
+      }, 50);
+    }, 400);
+  }
+
+  function nextDressImages() {
+    if (!menTransitioning && !ladiesTransitioning) {
+      menIndex = (menIndex + 1) % menImages.length;
+      ladiesIndex = (ladiesIndex + 1) % ladiesImages.length;
+      updateDressMen();
+      updateDressLadies();
+    }
+  }
+
+  function startDressAutoPlay() {
+    dressAutoPlayInterval = setInterval(nextDressImages, 2500);
+  }
+
+  function stopDressAutoPlay() {
+    clearInterval(dressAutoPlayInterval);
+  }
+
+  // Fullscreen modal for dress code images
+  function openDressFullscreen(type) {
+    const modal = document.getElementById('dress-fullscreen-modal');
+    const img = document.getElementById('dress-fullscreen-img');
+    
+    if (type === 'men') {
+      img.src = document.getElementById('dress-men-img').src;
+    } else {
+      img.src = document.getElementById('dress-ladies-img').src;
+    }
+    
+    modal.style.display = 'flex';
+    stopDressAutoPlay();
+  }
+
+  function closeDressFullscreen() {
+    const modal = document.getElementById('dress-fullscreen-modal');
+    modal.style.display = 'none';
+    startDressAutoPlay();
+  }
+
   // Toggle Love Letter Overlay - FIXED: Uses fixed positioning
   function toggleLoveLetter() {
     const overlay = document.getElementById('love-letter-overlay');
@@ -1066,12 +1164,14 @@
       // Close overlay
       overlay.classList.remove('active');
       document.body.style.overflow = '';
+      stopDressAutoPlay();
     } else {
       // Open overlay
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
       // Scroll overlay to top when opening
       overlay.scrollTop = 0;
+      startDressAutoPlay();
     }
   }
 
