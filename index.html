@@ -36,9 +36,78 @@
       justify-content: center;
       padding: 3rem 2rem;
       position: relative;
-      min-height: 100vh;
+      height: 100vh;
       scroll-snap-align: center;
       scroll-snap-stop: normal;
+      overflow: hidden;
+    }
+
+    /* Overlay styling - FIXED POSITIONING FOR FULL VIEWPORT COVERAGE */
+    .section-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(251, 242, 226, 0.98);
+      z-index: 1000;
+      display: none;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    .section-overlay.active {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes overlayFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .overlay-content {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      padding: 3rem 2rem;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .overlay-close {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(194, 24, 91, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .overlay-close:hover {
+      background: #99204a;
+      transform: scale(1.15);
+      box-shadow: 0 6px 20px rgba(194, 24, 91, 0.6);
     }
 
     /* Add CSS scroll snap points for gentle pull */
@@ -60,30 +129,6 @@
       }
     }
 
-    /* Individual section styling */
-    #title-section {
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    #our-story {
-      min-height: 100vh;
-      height: auto;
-    }
-
-    #donations {
-      height: 100vh;
-    }
-
-    #venue-info {
-      min-height: 100vh;
-      height: auto;
-    }
-
-    #dress-code {
-      min-height: 100vh;
-      height: auto;
-    }
     .section-title {
       font-family: 'Dancing Script', cursive;
       color: var(--accent);
@@ -768,7 +813,9 @@
   </div>
 </div>
 
-<!-- NEW: Title Section with Static Image -->
+<!-- ========================================
+     SECTION 1: TITLE SECTION
+     ======================================== -->
 <section id="title-section" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/Section2.png');"></div>
   <h1 class="couple-names" style="animation: fadeInNames 2s ease-out forwards;">Elaine <span class="name-separator">&</span> Filipe</h1>
@@ -777,28 +824,25 @@
   </div>
 </section>
 
-<!-- Carousel Section (moved from first section) -->
-<section id="our-story" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/Section2.png');"></div>
+<!-- ========================================
+     SECTION 2: CAROUSEL (with Love Letter Overlay)
+     ======================================== -->
+<section id="carousel-section" class="section-fade">
+  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
   <h1 class="section-title">Nossa História</h1>
-  <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 70vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease; margin-bottom: 2rem;">
+  <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 60vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease;">
     <img id="left-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
     <img id="center-img" class="carousel-center" style="width: 400px; height: 600px; object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
     <img id="right-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
   </div>
-  <button onclick="toggleLoveLetter()" class="btn" style="font-size: 1.2rem; padding: 0.8rem 2rem; margin-top: 1rem;">📖 Leia Nossa História de Amor</button>
-  <div id="love-letter-content" class="love-letter" style="display: none; margin-top: 2rem; max-height: 0; opacity: 0; transition: all 0.6s ease;">
-    <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
-    <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
-    <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
-    <p>Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
-    <div class="love-letter-signature">Com amor, Elaine & Filipe ❤️</div>
-  </div>
+  <button onclick="toggleLoveLetter()" class="btn" style="font-size: 1.2rem; padding: 0.8rem 2rem; margin-top: 2rem;">📖 Leia Nossa História de Amor</button>
 </section>
 
-
+<!-- ========================================
+     SECTION 3: DONATIONS
+     ======================================== -->
 <section id="donations" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/TitleSection.png');"></div>
+  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
   <h1 class="section-title" style="margin-bottom: 1.5rem;">Faça parte com sua ajuda ❤️</h1>
   <div class="donations-flexrow">
     <div class="donations-stack">
@@ -823,6 +867,9 @@
   </div>
 </section>
 
+<!-- ========================================
+     SECTION 4: VENUE INFO (with Dress Code Overlay)
+     ======================================== -->
 <section id="venue-info" class="section-fade">
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
@@ -832,48 +879,74 @@
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem; width: 90%; max-width: 900px;">
-    <!-- Venue Card with Button -->
-    <div class="donation-board" style="min-width: 300px;">
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 2rem; width: 90%; max-width: 1000px; flex-wrap: wrap;">
+    <!-- Venue Card -->
+    <div class="donation-board" style="min-width: 300px; flex: 1;">
       <img class="icon" src="assets/images/iconVenue.png" alt="Local da Cerimônia" style="width: 100px; height: 100px; margin-bottom: 1.2rem;">
       <h2 style="margin: 0.5rem 0; font-size: 2rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Local da Cerimônia</h2>
       <h3 style="margin: 0.5rem 0 1.5rem 0; font-size: 1.6rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
       <a class="donation-btn" href="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro" target="_blank">Ver no Google Maps</a>
+      <p style="margin:0.8rem 0; font-size:1.2rem; color: var(--dark-main);"><b>📅</b> 27 de Dezembro de 2025</p>
+      <p style="margin:0.3rem 0; font-size:1.2rem; color: var(--dark-main);"><b>📍</b> Praça Inácio do Canto, nº 9</p>
+      <p style="margin:0.3rem 0; font-size:1.2rem; color: var(--dark-main);">Madureira, Rio de Janeiro</p>
+      <p style="margin:0.8rem 0; font-size:1.2rem; color: var(--dark-main);"><b>🕓</b> 16:00h <span style="color: var(--accent); font-weight: 600;">(Chegue antes! ❤️)</span></p>
     </div>
 
-    <!-- Event Details Card -->
-    <div style="background: rgba(255,255,255,0.92); padding: 2rem 2.5rem; border-radius: 20px; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,0.15); max-width: 600px; width: 100%;">
-      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
-      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
-      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent); font-weight: 600;">(Por favor chegar antes ❤️)</span></p>
-    </div>
-  </div>
-</section>
-
-<section id="dress-code" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/Pose4.jpg');"></div>
-  <h1 class="section-title">Dress Code</h1>
-  <div style="margin-top: 2rem; padding: 3rem; background: rgba(255,255,255,0.88); border-radius: 25px; max-width: 1100px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
-    <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.5rem; color: var(--accent);">👔 Esporte Fino</h2>
-    <p style="font-size:1.3rem; margin-bottom: 2.5rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
-
-    <!-- Men's Examples -->
-    <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
-      <div style="flex: 1; min-width: 300px; max-width: 400px;">
-        <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-      </div>
-      <div style="flex: 1; min-width: 300px; max-width: 400px;">
-        <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-      </div>
-    </div>
-
-    <!-- Ladies Placeholder -->
-    <div style="margin-top: 3.5rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(194,24,91,0.08) 0%, rgba(59,39,82,0.08) 100%); border-radius: 20px; border: 3px dashed rgba(194,24,91,0.3);">
-      <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 1.2rem;">👗 Inspirações para as Damas</h3>
-      <p style="font-size: 1.2rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
+    <!-- Dress Code Card -->
+    <div class="donation-board" style="min-width: 300px; flex: 1;">
+      <h2 style="margin: 0.5rem 0 1rem 0; font-size: 2rem; color: var(--accent); font-family: 'Dancing Script', cursive;">👔 Dress Code</h2>
+      <h3 style="margin: 0.5rem 0 1.5rem 0; font-size: 1.6rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Esporte Fino</h3>
+      <button onclick="toggleDressCode()" class="donation-btn" style="border: none; cursor: pointer;">Ver Inspirações</button>
     </div>
   </div>
 </section>
+
+<!-- ========================================
+     OVERLAYS (Fixed Position - Outside Sections)
+     ======================================== -->
+
+<!-- Love Letter Overlay -->
+<div id="love-letter-overlay" class="section-overlay">
+  <div class="overlay-content">
+    <button class="overlay-close" onclick="toggleLoveLetter()">×</button>
+    <div class="love-letter" style="width: 100%; max-width: 900px;">
+      <h1 class="section-title" style="margin-top: 2rem;">Nossa História de Amor</h1>
+      <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
+      <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
+      <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
+      <p>Depois de 6 anos juntos, veio o pedido: no meio de um show da Mariah Carey! Uma grande surpresa que tornou um momento especial em um dos mais marcantes da nossa história. Mal podemos esperar pra viver o próximo capítulo, de mãos dadas. Agora, chegou a hora de celebrar tudo isso com quem a gente ama. E é por isso que você está aqui, pra celebrar com a gente!</p>
+      <div class="love-letter-signature">Com amor, Elaine & Filipe ❤️</div>
+    </div>
+  </div>
+</div>
+
+<!-- Dress Code Overlay -->
+<div id="dress-code-overlay" class="section-overlay">
+  <div class="overlay-content">
+    <button class="overlay-close" onclick="toggleDressCode()">×</button>
+    <div style="width: 100%; max-width: 1100px; padding: 2rem; background: rgba(255,255,255,0.88); border-radius: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+      <h1 class="section-title" style="margin-top: 2rem;">Dress Code</h1>
+      <h2 style="margin-top:0; margin-bottom:1.5rem; font-size:2.5rem; color: var(--accent);">👔 Esporte Fino</h2>
+      <p style="font-size:1.3rem; margin-bottom: 2.5rem; color: var(--dark-main);">Vista-se com elegância! Aqui estão algumas inspirações para os cavalheiros:</p>
+
+      <!-- Men's Examples -->
+      <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
+        <div style="flex: 1; min-width: 300px; max-width: 400px;">
+          <img src="assets/images/esporte-fino1.jpg" alt="Esporte Fino - Exemplo 1" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+        <div style="flex: 1; min-width: 300px; max-width: 400px;">
+          <img src="assets/images/esporte-fino2.jpg" alt="Esporte Fino - Exemplo 2" style="width: 100%; height: 600px; object-fit: cover; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        </div>
+      </div>
+
+      <!-- Ladies Placeholder -->
+      <div style="margin-top: 3.5rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(194,24,91,0.08) 0%, rgba(59,39,82,0.08) 100%); border-radius: 20px; border: 3px dashed rgba(194,24,91,0.3);">
+        <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 1.2rem;">👗 Inspirações para as Damas</h3>
+        <p style="font-size: 1.2rem; color: var(--dark-main); font-style: italic;">Em breve, mais exemplos de looks elegantes!</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Background Music -->
 <audio id="story-audio" src="assets/audio/A_Thousand_Years.mp3" preload="auto" loop></audio>
@@ -929,27 +1002,39 @@
   function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 5000); }
   function stopAutoPlay() { clearInterval(autoPlayInterval); }
 
-  // Toggle Love Letter
+  // Toggle Love Letter Overlay - FIXED: Uses fixed positioning
   function toggleLoveLetter() {
-    const letterContent = document.getElementById('love-letter-content');
-    const button = event.target;
-
-    if (letterContent.style.display === 'none' || letterContent.style.display === '') {
-      // Show letter
-      letterContent.style.display = 'block';
-      setTimeout(() => {
-        letterContent.style.maxHeight = '2000px';
-        letterContent.style.opacity = '1';
-      }, 10);
-      button.textContent = '📖 Fechar História';
+    const overlay = document.getElementById('love-letter-overlay');
+    const isActive = overlay.classList.contains('active');
+    
+    if (isActive) {
+      // Close overlay
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
     } else {
-      // Hide letter
-      letterContent.style.maxHeight = '0';
-      letterContent.style.opacity = '0';
-      setTimeout(() => {
-        letterContent.style.display = 'none';
-      }, 600);
-      button.textContent = '📖 Leia Nossa História de Amor';
+      // Open overlay
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // Scroll overlay to top when opening
+      overlay.scrollTop = 0;
+    }
+  }
+
+  // Toggle Dress Code Overlay - FIXED: Uses fixed positioning
+  function toggleDressCode() {
+    const overlay = document.getElementById('dress-code-overlay');
+    const isActive = overlay.classList.contains('active');
+    
+    if (isActive) {
+      // Close overlay
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    } else {
+      // Open overlay
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      // Scroll overlay to top when opening
+      overlay.scrollTop = 0;
     }
   }
 
@@ -1013,20 +1098,18 @@
     });
   }
 
-  // Robust Audio Management - Updated for 6 sections
+  // Robust Audio Management - Updated for 4 sections
   const audioSeekTimes = {
     "title-section": 0,
-    "our-story": 20,
+    "carousel-section": 20,
     "donations": 60,
-    "venue-info": 33,
-    "dress-code": 50
+    "venue-info": 33
   };
   const audios = {
     "title-section": document.getElementById('story-audio'),
-    "our-story": document.getElementById('story-audio'),
+    "carousel-section": document.getElementById('story-audio'),
     "donations": document.getElementById('donation-audio'),
-    "venue-info": document.getElementById('invites-audio'),
-    "dress-code": document.getElementById('invites-audio')
+    "venue-info": document.getElementById('invites-audio')
   };
   let currentPlayingSection = null;
   let debounceTimeout = null;
