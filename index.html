@@ -667,6 +667,19 @@
       .couple-names .name-separator {
         font-size: 2.2rem;
       }
+      /* Venue Card Responsive */
+      .donation-board h2 {
+        font-size: 2.2rem !important;
+      }
+      .donation-board h3 {
+        font-size: 3rem !important;
+      }
+      .donation-board span[style*="font-size: 4rem"] {
+        font-size: 3rem !important;
+      }
+      .donation-board p {
+        font-size: 1rem !important;
+      }
       /* Carousel adjustments for mobile - larger size */
       div[style*="width: 900px"] {
         width: 95vw !important;
@@ -726,12 +739,19 @@
       .countdown-card {
         font-size: 1.5rem;
         flex-wrap: wrap;
+        padding: 0.6rem 1rem !important;
+        gap: 0.8rem !important;
       }
       .countdown-card .countdown-value {
         font-size: 1.9rem;
       }
       .countdown-card .countdown-label {
         font-size: 1rem;
+      }
+      .countdown-card .donation-btn {
+        width: 100%;
+        padding: 0.7rem 1.2rem !important;
+        font-size: 1rem !important;
       }
       #carousel-container {
         height: 50vh !important;
@@ -766,7 +786,115 @@
         width: 220px;
         height: 230px;
       }
+      /* Venue Card Mobile Adjustments */
+      .donation-board h2 {
+        font-size: 1.8rem !important;
+      }
+      .donation-board h3 {
+        font-size: 2.5rem !important;
+      }
+      .donation-board span[style*="font-size: 4rem"] {
+        font-size: 2.5rem !important;
+      }
+      .donation-board div[style*="gap: 1.5rem"] {
+        gap: 1rem !important;
+      }
+      .donation-board .donation-btn {
+        font-size: 1rem !important;
+        padding: 0.7rem 1.2rem !important;
+      }
+      /* Dress Code Carousel Mobile */
+      #dress-code-carousel {
+        flex-direction: column !important;
+        height: auto !important;
+        gap: 2rem !important;
+      }
+      #dress-code-carousel > div {
+        width: 100% !important;
+      }
+      #dress-code-carousel h3 {
+        font-size: 1.5rem !important;
+      }
+      #dress-code-carousel .donation-btn {
+        font-size: 1rem !important;
+        padding: 0.7rem 1.5rem !important;
+      }
     }
+
+    /* Portrait orientation (9:16 aspect ratio) - Mobile */
+    @media (max-width: 768px) and (orientation: portrait) {
+      #dress-code-carousel {
+        flex-direction: column;
+        height: auto !important;
+        gap: 2.5rem;
+      }
+      #dress-code-carousel > div {
+        width: 100%;
+        max-width: 400px;
+      }
+      #dress-code-carousel > div > div {
+        height: 450px !important;
+      }
+      .donation-board {
+        width: 92vw !important;
+      }
+      .countdown-card {
+        width: 95vw !important;
+        max-width: 500px !important;
+      }
+    }
+
+    /* Ultra-small devices (iPhone SE, etc.) */
+    @media (max-width: 375px) {
+      .couple-names {
+        font-size: 2.5rem !important;
+      }
+      .couple-names .name-separator {
+        font-size: 1.8rem !important;
+      }
+      .section-title {
+        font-size: 1.9rem !important;
+      }
+      .countdown-card {
+        font-size: 1.3rem !important;
+        padding: 0.5rem 0.8rem !important;
+      }
+      .countdown-card .countdown-value {
+        font-size: 1.6rem !important;
+      }
+      .countdown-card .countdown-label {
+        font-size: 0.9rem !important;
+      }
+      .donation-board h2 {
+        font-size: 1.5rem !important;
+      }
+      .donation-board h3 {
+        font-size: 2.2rem !important;
+      }
+      #dress-code-carousel > div > div {
+        height: 380px !important;
+      }
+    }
+
+    /* Landscape orientation (16:9 aspect ratio) - Tablets/Desktop */
+    @media (min-width: 769px) and (max-width: 1366px) and (orientation: landscape) {
+      #dress-code-carousel {
+        max-width: 900px !important;
+        height: 50vh !important;
+        gap: 2rem !important;
+      }
+      #dress-code-carousel h3 {
+        font-size: 1.6rem !important;
+      }
+      .couple-names {
+        font-size: 7rem !important;
+      }
+      .couple-names .name-separator {
+        font-size: 5rem !important;
+      }
+    }
+
+    /* Ultra-wide monitors (21:9 and wider) - No changes needed, original layout works */
     /* Section backgrounds */
     .background-layer {
       position: absolute;
