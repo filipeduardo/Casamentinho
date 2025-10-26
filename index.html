@@ -241,7 +241,7 @@
       text-align: center;
       margin-bottom: 2rem;
       animation: coupleNamesDrop 1.2s ease-out 0.8s both;
-      text-shadow: 
+      text-shadow:
         0 4px 8px rgba(0,0,0,0.3),
         0 8px 16px rgba(0,0,0,0.25),
         0 12px 24px rgba(0,0,0,0.2),
@@ -903,11 +903,11 @@
   <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
   <!-- Countdown Card - Compact -->
-  <div class="countdown-card" style="padding: 1rem 2rem; margin-bottom: 2rem;">
+  <div class="countdown-card" style="padding: 0.5rem 2rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
     <span class="countdown-label">Faltam</span>
     <span id="days" class="countdown-value">0</span><span class="countdown-label">Dias e</span>
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
-    <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
+    <a href="https://forms.gle/RSVPFormExample" target="_blank" class="donation-btn" style="margin: 0; padding: 0.8rem 1.8rem; font-size: 1.1rem;">Confirme sua presença AQUI</a>
   </div>
 
   <!-- Unified Venue & Dress Code Card -->
@@ -1050,7 +1050,7 @@
   // Dress Code Carousel - Auto-rotating with same logic as main carousel
   const menImages = ["esporte-fino1.jpg", "esporte-fino2.jpg"];
   const ladiesImages = ["ladies-esporte-fino1.jpg", "ladies-esporte-fino2.jpg"];
-  
+
   let menIndex = 0;
   let ladiesIndex = 0;
   let menTransitioning = false;
@@ -1120,13 +1120,13 @@
   function openDressFullscreen(type) {
     const modal = document.getElementById('dress-fullscreen-modal');
     const img = document.getElementById('dress-fullscreen-img');
-    
+
     if (type === 'men') {
       img.src = document.getElementById('dress-men-img').src;
     } else {
       img.src = document.getElementById('dress-ladies-img').src;
     }
-    
+
     modal.style.display = 'flex';
     stopDressAutoPlay();
   }
