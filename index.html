@@ -61,12 +61,12 @@
     }
 
     /* Individual section styling */
-    #our-story {
+    #title-section {
       height: 100vh;
       overflow: hidden;
     }
 
-    #love-story {
+    #our-story {
       min-height: 100vh;
       height: auto;
     }
@@ -768,22 +768,26 @@
   </div>
 </div>
 
-<section id="our-story" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
-  <h1 class="couple-names">Elaine <span class="name-separator">&</span> Filipe</h1>
-  <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 70vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease;">
-    <img id="left-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" onclick="prevImage()">
-    <img id="center-img" class="carousel-center" style="width: 400px; height: 600px; object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
-    <img id="right-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" onclick="nextImage()">
-    <button onclick="prevImage()" onmouseover="this.style.background='rgba(194,24,91,0.95)'; this.style.transform='translateY(-50%) scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.92)'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border-radius: 50%; border: none; width: 55px; height: 55px; cursor: pointer; z-index: 3; font-size: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); color: #333;">❮</button>
-    <button onclick="nextImage()" onmouseover="this.style.background='rgba(194,24,91,0.95)'; this.style.transform='translateY(-50%) scale(1.15)';" onmouseout="this.style.background='rgba(255,255,255,0.92)'; this.style.transform='translateY(-50%) scale(1)';" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border-radius: 50%; border: none; width: 55px; height: 55px; cursor: pointer; z-index: 3; font-size: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); color: #333;">❯</button>
+<!-- NEW: Title Section with Static Image -->
+<section id="title-section" class="section-fade">
+  <div class="background-layer" style="background-image: url('assets/images/Section2.png');"></div>
+  <h1 class="couple-names" style="animation: fadeInNames 2s ease-out forwards;">Elaine <span class="name-separator">&</span> Filipe</h1>
+  <div style="margin-top: 3rem; max-width: 800px; width: 90%;">
+    <img src="assets/images/Title1.jpg" alt="Elaine & Filipe" style="width: 100%; height: auto; max-height: 70vh; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); animation: scaleIn 1.5s ease-out 0.5s both;">
   </div>
 </section>
 
-<section id="love-story" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
-  <h1 class="section-title">Nossa História de Amor</h1>
-  <div class="love-letter">
+<!-- Carousel Section (moved from first section) -->
+<section id="our-story" class="section-fade">
+  <div class="background-layer" style="background-image: url('assets/images/Section2.png');"></div>
+  <h1 class="section-title">Nossa História</h1>
+  <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 70vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease; margin-bottom: 2rem;">
+    <img id="left-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    <img id="center-img" class="carousel-center" style="width: 400px; height: 600px; object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
+    <img id="right-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+  </div>
+  <button onclick="toggleLoveLetter()" class="btn" style="font-size: 1.2rem; padding: 0.8rem 2rem; margin-top: 1rem;">📖 Leia Nossa História de Amor</button>
+  <div id="love-letter-content" class="love-letter" style="display: none; margin-top: 2rem; max-height: 0; opacity: 0; transition: all 0.6s ease;">
     <p>Nos conhecemos na faculdade, o destino e os rolês universitários nos apresentaram, mas foi só quatro anos depois, que as coisas realmente começaram.</p>
     <p>Nosso primeiro encontro? Cerveja quente num quiosque velho perto de uma praia. Pode não parecer o mais romântico dos cenários, mas hoje a gente morre de rir ao lembrar porque foi ali que começou tudo.</p>
     <p>Desde então, vivemos um relacionamento cheio de parceria e amor. A gente é grudento mesmo e adora assistir filmes juntos, rir das nossas piadas internas (e das que ninguém mais entende) e aproveitar um barzinho sempre que dá. O amor aqui é feito de cumplicidade, apoio e muitas risadas.</p>
@@ -792,8 +796,9 @@
   </div>
 </section>
 
+
 <section id="donations" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
+  <div class="background-layer" style="background-image: url('assets/images/TitleSection.png');"></div>
   <h1 class="section-title" style="margin-bottom: 1.5rem;">Faça parte com sua ajuda ❤️</h1>
   <div class="donations-flexrow">
     <div class="donations-stack">
@@ -827,27 +832,20 @@
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
     <a href="https://forms.gle/RSVPFormExample" target="_blank" style="margin-left:1.5em;">Confirme sua presença AQUI</a>
   </div>
-  <div class="invitation-card" style="text-align:center; max-width: 900px; width: 90%;">
-    <!-- Highlighted Venue Info -->
-    <div style="background: linear-gradient(135deg, rgba(194,24,91,0.1) 0%, rgba(59,39,82,0.1) 100%); padding: 1.5rem; border-radius: 20px; border: 2px solid rgba(194,24,91,0.3);">
-      <h2 style="margin-top:0; margin-bottom:0.8rem; text-align:center; font-size:2.2rem; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">📍 Local da Cerimônia</h2>
-      <h3 style="font-size:1.8rem; margin-bottom:1.2rem;"><a href="https://www.instagram.com/maisongarden_" target="_blank" style="text-decoration: none; color: var(--accent);">Maison Garden</a></h3>
-      <div style="width:100%; max-width:700px; margin:0 auto 1.5rem; border-radius:16px; overflow:hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.2);">
-        <iframe
-          src="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro&output=embed"
-          width="100%"
-          height="280"
-          style="border:0; display:block;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-      <div style="background: rgba(255,255,255,0.85); padding: 1.2rem 1.5rem; border-radius: 12px; display: inline-block; text-align: left; max-width: 600px;">
-        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
-        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
-        <p style="margin:0.5rem 0; font-size:1.2rem;"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent);">(Por favor chegar antes ❤️)</span></p>
-      </div>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem; width: 90%; max-width: 900px;">
+    <!-- Venue Card with Button -->
+    <div class="donation-board" style="min-width: 300px;">
+      <img class="icon" src="assets/images/iconVenue.png" alt="Local da Cerimônia" style="width: 100px; height: 100px; margin-bottom: 1.2rem;">
+      <h2 style="margin: 0.5rem 0; font-size: 2rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Local da Cerimônia</h2>
+      <h3 style="margin: 0.5rem 0 1.5rem 0; font-size: 1.6rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
+      <a class="donation-btn" href="https://www.google.com/maps?q=Praça+Inácio+do+Canto,+9,+Madureira,+Rio+de+Janeiro" target="_blank">Ver no Google Maps</a>
+    </div>
+
+    <!-- Event Details Card -->
+    <div style="background: rgba(255,255,255,0.92); padding: 2rem 2.5rem; border-radius: 20px; text-align: left; box-shadow: 0 8px 24px rgba(0,0,0,0.15); max-width: 600px; width: 100%;">
+      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>📅 Data:</b> 27 de Dezembro de 2025</p>
+      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>📍 Localização:</b> Praça Inácio do Canto, nº 9, Madureira, Rio de Janeiro</p>
+      <p style="margin:0.8rem 0; font-size:1.3rem; color: var(--dark-main);"><b>🕓 Horário:</b> 16:00h <span style="color: var(--accent); font-weight: 600;">(Por favor chegar antes ❤️)</span></p>
     </div>
   </div>
 </section>
@@ -920,6 +918,7 @@
     }, 400);
   }
 
+  // Auto-advance only - no manual controls
   function nextImage() {
     if (!isTransitioning) {
       index = (index + 1) % images.length;
@@ -927,15 +926,32 @@
     }
   }
 
-  function prevImage() {
-    if (!isTransitioning) {
-      index = (index - 1 + images.length) % images.length;
-      updateCarousel();
-    }
-  }
-
   function startAutoPlay() { autoPlayInterval = setInterval(nextImage, 5000); }
   function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+  // Toggle Love Letter
+  function toggleLoveLetter() {
+    const letterContent = document.getElementById('love-letter-content');
+    const button = event.target;
+
+    if (letterContent.style.display === 'none' || letterContent.style.display === '') {
+      // Show letter
+      letterContent.style.display = 'block';
+      setTimeout(() => {
+        letterContent.style.maxHeight = '2000px';
+        letterContent.style.opacity = '1';
+      }, 10);
+      button.textContent = '📖 Fechar História';
+    } else {
+      // Hide letter
+      letterContent.style.maxHeight = '0';
+      letterContent.style.opacity = '0';
+      setTimeout(() => {
+        letterContent.style.display = 'none';
+      }, 600);
+      button.textContent = '📖 Leia Nossa História de Amor';
+    }
+  }
 
   // Fullscreen Carousel Functions
   function openFullscreen() {
@@ -997,17 +1013,17 @@
     });
   }
 
-  // Robust Audio Management - Updated for 5 sections
+  // Robust Audio Management - Updated for 6 sections
   const audioSeekTimes = {
+    "title-section": 0,
     "our-story": 20,
-    "love-story": 40,
     "donations": 60,
     "venue-info": 33,
     "dress-code": 50
   };
   const audios = {
+    "title-section": document.getElementById('story-audio'),
     "our-story": document.getElementById('story-audio'),
-    "love-story": document.getElementById('story-audio'),
     "donations": document.getElementById('donation-audio'),
     "venue-info": document.getElementById('invites-audio'),
     "dress-code": document.getElementById('invites-audio')
