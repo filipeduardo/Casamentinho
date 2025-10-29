@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=4.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding of Elaine & Filipe</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
   <style>
     :root {
-      --dark-main: #3B2752;
+      --dark-main: #8B0000;
       --light-main: #FBF2E2;
       --accent: #C2185B;
     }
@@ -40,6 +40,128 @@
       scroll-snap-align: center;
       scroll-snap-stop: normal;
       overflow: hidden;
+      min-height: auto;
+    }
+
+    /* Smart responsive section sizing */
+    /* Large desktops - keep full viewport */
+    @media (min-width: 1440px) {
+      section {
+        height: 100vh;
+        padding: 4rem 2rem;
+      }
+    }
+
+    /* Medium desktops - full viewport with adjusted padding */
+    @media (max-width: 1439px) and (min-width: 1024px) {
+      section {
+        height: 100vh;
+        padding: 3.5rem 2rem;
+      }
+    }
+
+    /* Tablets - reduce to 90vh for better mobile-like experience */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      section {
+        height: auto;
+        min-height: 90vh;
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    /* Small tablets - reduce further */
+    @media (max-width: 767px) and (min-width: 481px) {
+      section {
+        height: auto;
+        min-height: 85vh;
+        padding: 2.5rem 1.5rem;
+      }
+    }
+
+    /* Mobile phones - content-based sizing */
+    @media (max-width: 480px) {
+      section {
+        height: auto;
+        min-height: auto;
+        padding: 2rem 1rem;
+        overflow: visible;
+      }
+    }
+
+    /* Landscape phones - compact sizing */
+    @media (max-width: 768px) and (orientation: landscape) {
+      section {
+        height: auto;
+        min-height: 100vh;
+        padding: 1.5rem 1rem;
+      }
+    }
+
+    /* Portrait orientation optimization - flexible height */
+    @media (orientation: portrait) and (max-width: 600px) {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      section {
+        height: auto;
+        min-height: auto;
+        padding: 1.5rem 1rem;
+        overflow: visible;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      /* Title section stays full screen in portrait */
+      #title-section {
+        height: 100vh;
+        min-height: 100vh;
+        padding: 3rem 1rem;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+      }
+      /* Hide side carousel images in portrait */
+      #left-img, #right-img {
+        display: none !important;
+      }
+      #carousel-container {
+        height: auto !important;
+        gap: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      #center-img {
+        width: 200px !important;
+        height: 320px !important;
+      }
+    }
+
+    /* Ultra-tall portrait (aspect ratio > 1.5) - very compact */
+    @media (max-width: 480px) and (min-aspect-ratio: 9/16) {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      section {
+        padding: 1.2rem 0.8rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      /* Title section stays full screen */
+      #title-section {
+        height: 100vh;
+        min-height: 100vh;
+        padding: 2.5rem 0.8rem;
+        width: 100%;
+        max-width: 100%;
+      }
     }
 
     /* Overlay styling - FIXED POSITIONING FOR FULL VIEWPORT COVERAGE */
@@ -54,6 +176,7 @@
       display: none;
       overflow-y: auto;
       padding: 2rem;
+      box-sizing: border-box;
     }
 
     .section-overlay.active {
@@ -81,6 +204,26 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
+      box-sizing: border-box;
+    }
+
+    /* Responsive overlay padding for mobile */
+    @media (max-width: 768px) {
+      .section-overlay {
+        padding: 1rem;
+      }
+      .overlay-content {
+        padding: 2rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-overlay {
+        padding: 0.5rem;
+      }
+      .overlay-content {
+        padding: 1.5rem 0.8rem;
+      }
     }
 
     .overlay-close {
@@ -102,6 +245,27 @@
       align-items: center;
       justify-content: center;
       line-height: 1;
+    }
+
+    /* Overlay close button responsive adjustments */
+    @media (max-width: 768px) {
+      .overlay-close {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .overlay-close {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+        top: 0.8rem;
+        right: 0.8rem;
+      }
     }
 
     .overlay-close:hover {
@@ -139,6 +303,25 @@
       animation: scaleIn 1s ease-out;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
       opacity: 1 !important;
+    }
+
+    /* Responsive section title sizing */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      .section-title {
+        margin-bottom: 1.2rem;
+      }
+    }
+
+    @media (max-width: 767px) and (min-width: 481px) {
+      .section-title {
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        margin-bottom: 0.8rem;
+      }
     }
 
     /* Ensure all text has full opacity */
@@ -237,7 +420,7 @@
     .couple-names {
       font-family: 'Dancing Script', cursive;
       font-size: 9rem;
-      color: var(--accent);
+      color: white;
       text-align: center;
       margin-bottom: 2rem;
       animation: coupleNamesDrop 1.2s ease-out 0.8s both;
@@ -256,6 +439,38 @@
       font-size: 6rem;
       margin: 0 1rem;
       animation: scaleIn 1.2s ease-out 1s both;
+    }
+
+    /* Portrait mobile optimization for couple names */
+    @media (orientation: portrait) and (max-width: 600px) {
+      #title-section .couple-names {
+        font-size: 18vw !important;
+        margin-bottom: 1.2rem !important;
+        line-height: 0.85 !important;
+        max-width: 90vw !important;
+        word-spacing: 100vw !important;
+      }
+      #title-section .couple-names .name-separator {
+        font-size: 13vw !important;
+        margin: 0 0.4rem !important;
+        display: block !important;
+      }
+    }
+
+    /* Ultra-tall portrait phones */
+    @media (max-width: 480px) and (min-aspect-ratio: 9/16) {
+      #title-section .couple-names {
+        font-size: 17vw !important;
+        margin-bottom: 0.8rem !important;
+        line-height: 0.85 !important;
+        max-width: 90vw !important;
+        word-spacing: 100vw !important;
+      }
+      #title-section .couple-names .name-separator {
+        font-size: 12vw !important;
+        margin: 0 0.3rem !important;
+        display: block !important;
+      }
     }
 
     /* Carousel center image hover effect - smooth and gradual */
@@ -438,8 +653,8 @@
       width: 92%;
       margin: 2rem auto;
       box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      position: relative;
       animation: fadeInUp 1s ease-out;
+      box-sizing: border-box;
     }
 
     .love-letter::before {
@@ -450,6 +665,189 @@
       width: 3px;
       height: 100%;
       background: rgba(194,24,91,0.2);
+    }
+
+    /* Responsive love letter for tablets */
+    @media (max-width: 1024px) {
+      .love-letter {
+        padding: 3.5rem 4rem 3.5rem 7rem;
+        width: 90%;
+      }
+    }
+
+    /* Responsive love letter for small tablets */
+    @media (max-width: 768px) {
+      .love-letter {
+        padding: 3rem 2rem 3rem 5rem !important;
+        width: 85% !important;
+        max-width: 600px !important;
+      }
+      .love-letter::before {
+        left: 50px !important;
+      }
+    }
+
+    /* Responsive love letter for mobile */
+    @media (max-width: 480px) {
+      .love-letter {
+        padding: 2.5rem 1.5rem 2.5rem 4rem !important;
+        width: 80% !important;
+        margin: 1.5rem auto !important;
+      }
+      .love-letter::before {
+        left: 50px !important;
+        width: 2px !important;
+      }
+    }
+
+    /* Portrait mode love letter and overlay centering */
+    @media (orientation: portrait) and (max-width: 768px) {
+      .love-letter {
+        width: 85% !important;
+        max-width: 100% !important;
+        margin: 1.5rem auto !important;
+        padding: 2.5rem 1.5rem 2.5rem 4rem !important;
+      }
+      .love-letter p {
+        font-size: 0.1rem !important;
+        line-height: 0.5rem !important;
+        margin-bottom: 1.2rem !important;
+      }
+      .love-letter-signature {
+        font-size: 1rem !important;
+        margin-top: 1.5rem !important;
+      }
+      .overlay-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 2rem 1rem !important;
+      }
+    }
+
+    /* Fix countdown card wrapping on mobile portrait */
+    @media (orientation: portrait) and (max-width: 480px) {
+      div.countdown-card {
+        flex-wrap: wrap !important;
+        gap: 0.3rem !important;
+        padding: 1rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      div.countdown-card .countdown-label {
+        font-size: 0.75rem !important;
+        margin: 0 0.1rem !important;
+      }
+      div.countdown-card .countdown-value {
+        font-size: 1.8rem !important;
+        margin: 0 0.2rem !important;
+      }
+      div.countdown-card .donation-btn {
+        width: 90% !important;
+        margin: 0.5rem auto 0 auto !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.85rem !important;
+      }
+    }
+
+    /* Fix countdown spacing on landscape orientation (430x932 etc) */
+    @media (orientation: landscape) and (max-height: 450px) {
+      div.countdown-card {
+        gap: 0.3rem !important;
+        padding: 0.8rem 1.2rem !important;
+        flex-wrap: nowrap !important;
+      }
+      div.countdown-card .countdown-label {
+        font-size: 2vw !important;
+        margin: 0 !important;
+      }
+      div.countdown-card .countdown-value {
+        font-size: 3.5vw !important;
+        margin: 0 0.15rem !important;
+      }
+      div.countdown-card .donation-btn {
+        font-size: 1.8vw !important;
+        padding: 0.6rem 1.2rem !important;
+        margin-left: 0.8rem !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
+    /* Landscape orientation countdown - larger tablets and desktops */
+    @media (orientation: landscape) and (min-height: 451px) and (max-height: 800px) {
+      div.countdown-card {
+        gap: 0.5rem !important;
+        padding: 1rem 1.5rem !important;
+        flex-wrap: nowrap !important;
+      }
+      div.countdown-card .countdown-label {
+        font-size: 2.5vw !important;
+        margin: 0 !important;
+      }
+      div.countdown-card .countdown-value {
+        font-size: 4vw !important;
+        margin: 0 0.2rem !important;
+      }
+      div.countdown-card .donation-btn {
+        font-size: 2vw !important;
+        padding: 0.7rem 1.5rem !important;
+        margin-left: 1rem !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
+    /* Fix venue info card overflow on portrait orientation */
+    @media (orientation: portrait) and (max-width: 480px) {
+      #venue-info .donation-board {
+        max-width: 100% !important;
+        width: 85vw !important;
+        padding: 1.5rem !important;
+        margin: 0 auto !important;
+        box-sizing: border-box;
+      }
+      #venue-info .donation-board h2 {
+        font-size: 2.2rem !important;
+      }
+      #venue-info .donation-board h3 {
+        font-size: 2.5rem !important;
+      }
+      #venue-info .donation-board > div > div {
+        gap: 1rem !important;
+      }
+      #venue-info .donation-board span[style*="font-size: 4rem"] {
+        font-size: 2.5rem !important;
+      }
+      #venue-info .donation-board > div:last-child p {
+        font-size: 0.8rem !important;
+        margin: 0.3rem 0 !important;
+        line-height: 1.3rem !important;
+      }
+    }
+
+    /* Explicit centering for all portrait elements */
+    @media (orientation: portrait) and (max-width: 600px) {
+      .card, .donation-board, .invitation-card, .text-card, .countdown-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+      }
+      .donations-flexrow, .donations-stack {
+        margin: 0 auto !important;
+        width: 100% !important;
+      }
+      #carousel-container {
+        margin: 0 auto !important;
+      }
+      .section-title {
+        text-align: center !important;
+      }
+      /* Reduce button width for carousel section in portrait */
+      #carousel-section > button {
+        width: 90% !important;
+        max-width: 90% !important;
+        margin: 1.5rem auto 0 auto !important;
+        padding: 0.7rem 1.2rem !important;
+        font-size: 0.95rem !important;
+      }
     }
 
     .love-letter p {
@@ -464,6 +862,19 @@
       animation: fadeInLetter 1.5s ease-out;
       text-shadow: 0.5px 0.5px 0.5px rgba(0,0,0,0.1);
       font-weight: 500;
+    }
+
+    /* Override love letter font size for portrait mode - higher specificity */
+    @media (orientation: portrait) and (max-width: 768px) {
+      .section-overlay .love-letter p {
+        font-size: 1.2rem !important;
+        line-height: 1.8rem !important;
+        margin-bottom: 1.2rem !important;
+      }
+      .section-overlay .love-letter-signature {
+        font-size: 1rem !important;
+        margin-top: 1.5rem !important;
+      }
     }
 
     .love-letter-signature {
@@ -494,6 +905,210 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* Adaptive card widths based on orientation */
+    /* Portrait orientation - narrower cards */
+    @media (orientation: portrait) {
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 95vw;
+        width: 90vw;
+        margin: 0.8rem auto;
+      }
+      .countdown-card {
+        max-width: 95vw;
+        width: 90vw;
+        margin: 0.8rem auto;
+      }
+    }
+
+    /* Landscape orientation - wider cards */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 600px;
+        width: 85%;
+        margin: 1rem auto;
+      }
+      .countdown-card {
+        max-width: 700px;
+        width: 85%;
+        margin: 1rem auto;
+      }
+    }
+
+    /* Desktop landscape - full width cards */
+    @media (orientation: landscape) and (min-width: 1025px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 900px;
+        width: 85%;
+        margin: 1.5rem auto;
+      }
+      .countdown-card {
+        max-width: 1000px;
+        width: 85%;
+        margin: 1.5rem auto;
+      }
+    }
+
+    /* Responsive card margins */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 1.2rem 0;
+      }
+    }
+
+    @media (max-width: 767px) and (min-width: 481px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 1rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 0.8rem 0;
+      }
+    }
+
+    /* Responsive donation card spacing */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 1.2rem 0;
+      }
+    }
+
+    @media (max-width: 767px) and (min-width: 481px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 1rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card, .donation-board, .invitation-card, .text-card {
+        margin: 0.8rem 0;
+      }
+    }
+
+    /* Portrait orientation donation cards */
+    @media (orientation: portrait) {
+      .donations-flexrow {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        align-items: center !important;
+      }
+      .donations-stack {
+        width: 100%;
+        max-width: 100%;
+        gap: 1rem !important;
+        align-items: center;
+        margin: 0 auto;
+      }
+      #donations .donation-board {
+        width: 90vw !important;
+        max-width: 95vw !important;
+        margin: 0.6rem auto !important;
+      }
+      .donation-qr-with-margin {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    /* Landscape orientation donation cards */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      .donations-flexrow {
+        flex-direction: row !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+      }
+      .donations-stack {
+        width: auto !important;
+        gap: 1.5rem !important;
+        align-items: flex-start;
+        margin: 0;
+      }
+      #donations .donation-board {
+        width: 280px !important;
+        max-width: 320px !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* Desktop landscape donation cards */
+    @media (orientation: landscape) and (min-width: 1025px) {
+      .donations-flexrow {
+        flex-direction: row !important;
+        gap: 2rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+      }
+      .donations-stack {
+        width: auto !important;
+        gap: 2rem !important;
+        align-items: flex-start;
+        margin: 0;
+      }
+      #donations .donation-board {
+        width: 320px !important;
+        max-width: 380px !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* Countdown card landscape orientation fixes */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      .countdown-card {
+        flex-wrap: nowrap !important;
+        gap: 0.8rem !important;
+        padding: 0.8rem 1.5rem !important;
+        font-size: 1.5rem !important;
+      }
+      .countdown-card .countdown-value {
+        font-size: 1.7rem !important;
+        margin: 0 0.2rem !important;
+      }
+      .countdown-card .countdown-label {
+        font-size: 0.95rem !important;
+        margin: 0 0.1rem !important;
+      }
+      .countdown-card .donation-btn {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1.2rem !important;
+        margin-left: 1rem !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
+    @media (orientation: landscape) and (min-width: 1025px) {
+      .countdown-card {
+        flex-wrap: nowrap !important;
+        gap: 1rem !important;
+        padding: 1rem 2rem !important;
+        font-size: 1.8rem !important;
+        max-width: 1000px !important;
+      }
+      .countdown-card .countdown-value {
+        font-size: 2rem !important;
+        margin: 0 0.3rem !important;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1rem !important;
+        margin: 0 0.2rem !important;
+      }
+      .countdown-card .donation-btn {
+        font-size: 1rem !important;
+        padding: 0.8rem 1.5rem !important;
+        margin-left: 1.5rem !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
     .card:hover, .donation-board:hover, .invitation-card:hover, .text-card:hover {
       transform: translateY(-5px) scale(1.01);
       box-shadow: 0 12px 40px rgba(59,39,82,0.22);
@@ -516,6 +1131,25 @@
       max-width: 900px;
       animation: scaleIn 1.2s ease-out;
       transition: transform 0.3s ease;
+    }
+
+    /* Responsive countdown card spacing */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      .countdown-card {
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 767px) and (min-width: 481px) {
+      .countdown-card {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .countdown-card {
+        margin-bottom: 1rem;
+      }
     }
     .countdown-card:hover {
       transform: scale(1.02);
@@ -602,6 +1236,37 @@
     #donations .donation-board.qr:hover img.qr {
       transform: scale(1.05);
     }
+
+    /* Adjust QR code size in landscape orientation */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      #donations .donation-board.qr img.qr {
+        width: 220px !important;
+        height: 230px !important;
+        margin: 1rem 0 0 0 !important;
+      }
+      #donations .donation-board.qr {
+        padding: 1.8rem 1.5rem !important;
+        min-height: 320px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+      }
+    }
+
+    @media (orientation: landscape) and (min-width: 1025px) {
+      #donations .donation-board.qr img.qr {
+        width: 280px !important;
+        height: 290px !important;
+        margin: 1.2rem 0 0 0 !important;
+      }
+      #donations .donation-board.qr {
+        padding: 2.2rem 2rem !important;
+        min-height: 380px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+      }
+    }
     #donations .donation-board.qr .donation-title {
       color: var(--accent);
       font-size: 1.25rem;
@@ -612,7 +1277,189 @@
       /* Default no extra margin on desktop */
       margin-bottom: 0;
     }
-    /* Comprehensive Mobile Responsiveness */
+    /* Large Desktops (1440px and above) */
+    @media (min-width: 1440px) {
+      .section-title {
+        font-size: 4rem;
+      }
+      .couple-names {
+        font-size: 10rem;
+      }
+      .couple-names .name-separator {
+        font-size: 6.5rem;
+      }
+      .countdown-card {
+        font-size: 2.8rem;
+        padding: 2.2rem 2.8rem;
+      }
+      .countdown-card .countdown-value {
+        font-size: 3.4rem;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1.4rem;
+      }
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 900px;
+        padding: 2.5rem 2.2rem;
+        font-size: 1.2rem;
+      }
+      /* Carousel for large screens */
+      #carousel-container {
+        height: 65vh !important;
+        gap: 2.5rem !important;
+      }
+      #center-img {
+        width: 450px !important;
+        height: 650px !important;
+      }
+      #left-img, #right-img {
+        width: 320px !important;
+        height: 500px !important;
+      }
+      /* Dress code carousel for large screens */
+      #dress-code-carousel {
+        max-width: 1200px !important;
+        height: 65vh !important;
+        gap: 3.5rem !important;
+      }
+      #dress-code-carousel h3 {
+        font-size: 2rem !important;
+      }
+    }
+
+    /* Base carousel image sizing */
+    #carousel-container {
+      width: 100%;
+      max-width: 1200px;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      transition: all 0.6s ease;
+    }
+    #center-img {
+      width: 400px;
+      height: 600px;
+    }
+    #left-img, #right-img {
+      width: 280px;
+      height: 450px;
+    }
+
+    /* Large Tablets and Small Desktops (1024px - 1200px) */
+    @media (max-width: 1200px) {
+      .section-title {
+        font-size: 3.2rem;
+      }
+      .couple-names {
+        font-size: 7.5rem;
+      }
+      .couple-names .name-separator {
+        font-size: 5rem;
+      }
+      .donations-flexrow {
+        gap: 2rem;
+      }
+      #donations .donation-board {
+        min-width: 320px;
+        max-width: 400px;
+      }
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 700px;
+        padding: 2rem 1.8rem;
+      }
+      .countdown-card {
+        font-size: 2.2rem;
+        padding: 1.8rem 2.2rem;
+      }
+      .countdown-card .countdown-value {
+        font-size: 2.6rem;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Medium Tablets (900px - 1024px) */
+    @media (max-width: 1024px) {
+      .section-title {
+        font-size: 3rem;
+      }
+      .couple-names {
+        font-size: 6.5rem;
+      }
+      .couple-names .name-separator {
+        font-size: 4.5rem;
+      }
+      .donations-flexrow {
+        gap: 1.8rem;
+      }
+      #donations .donation-board {
+        min-width: 300px;
+        max-width: 380px;
+      }
+      .card, .donation-board, .invitation-card, .text-card {
+        max-width: 650px;
+        padding: 1.8rem 1.6rem;
+      }
+      .countdown-card {
+        font-size: 2rem;
+        padding: 1.6rem 2rem;
+      }
+      .countdown-card .countdown-value {
+        font-size: 2.4rem;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1.15rem;
+      }
+      /* Carousel adjustments for medium tablets */
+      #carousel-container {
+        height: 58vh !important;
+        gap: 1.8rem !important;
+      }
+      #center-img {
+        width: 360px !important;
+        height: 550px !important;
+      }
+      #left-img, #right-img {
+        width: 240px !important;
+        height: 380px !important;
+      }
+
+    /* Landscape phones override tablet rules */
+    @media (max-width: 768px) and (orientation: landscape) {
+      #carousel-container {
+        height: auto !important;
+        gap: 0.8rem !important;
+        margin-bottom: 2rem !important;
+        max-width: 75vw !important;
+      }
+      #center-img {
+        width: 28vw !important;
+        height: 50vh !important;
+        max-width: 280px !important;
+        max-height: 450px !important;
+      }
+      #left-img, #right-img {
+        width: 18vw !important;
+        height: 38vh !important;
+        max-width: 160px !important;
+        max-height: 340px !important;
+      }
+    }
+      /* Dress code carousel for medium tablets */
+      #dress-code-carousel {
+        max-width: 900px !important;
+        height: 55vh !important;
+        gap: 2.5rem !important;
+      }
+      #dress-code-carousel h3 {
+        font-size: 1.7rem !important;
+      }
+    }
+
+    /* Small Tablets and Large Phones (768px - 900px) */
     @media (max-width: 900px) {
       .section-title {
         font-size: 2.8rem;
@@ -657,7 +1504,70 @@
       }
     }
 
-    @media (max-width: 768px) {
+    /* Landscape phones (480px - 768px) */
+    @media (max-width: 768px) and (orientation: landscape) {
+      #carousel-section {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding: 2rem 1.5rem !important;
+      }
+      .section-title {
+        font-size: 2.2rem !important;
+      }
+      .couple-names {
+        font-size: 4rem !important;
+      }
+      .couple-names .name-separator {
+        font-size: 2.8rem !important;
+      }
+      .countdown-card {
+        font-size: 1.6rem !important;
+        padding: 1rem 1.5rem !important;
+        flex-wrap: nowrap !important;
+      }
+      .countdown-card .countdown-value {
+        font-size: 2rem !important;
+      }
+      .countdown-card .countdown-label {
+        font-size: 1rem !important;
+      }
+      /* Carousel section button for landscape */
+      #carousel-section > button {
+        font-size: 0.9rem !important;
+        padding: 0.6rem 1.2rem !important;
+        margin-top: 0.1rem !important;
+      }
+      /* Love letter for landscape */
+      .love-letter {
+        padding: 2rem 3rem 2rem 4rem !important;
+        width: 90% !important;
+        max-width: 800px !important;
+      }
+      .love-letter p {
+        font-size: 1.6rem !important;
+        line-height: 2.2rem !important;
+      }
+      /* Dress code carousel for landscape */
+      #dress-code-carousel {
+        height: 60vh !important;
+        gap: 2rem !important;
+        flex-direction: row !important;
+      }
+      #dress-code-carousel h3 {
+        font-size: 1.4rem !important;
+      }
+      /* Donation boards for landscape */
+      .donations-flexrow {
+        flex-direction: row !important;
+        gap: 1.5rem !important;
+      }
+      #donations .donation-board {
+        min-width: 280px !important;
+        max-width: 320px !important;
+      }
+    }
+
+    @media (max-width: 768px) and (orientation: portrait) {
       .section-title {
         font-size: 2.5rem;
       }
@@ -680,23 +1590,24 @@
       .donation-board p {
         font-size: 1rem !important;
       }
-      /* Carousel adjustments for mobile - larger size */
+      /* Carousel adjustments for portrait tablets */
       div[style*="width: 900px"] {
         width: 95vw !important;
         max-width: 550px !important;
         padding: 30px !important;
       }
       #carousel-container {
-        height: 55vh !important;
-        gap: 1rem !important;
+        height: 50vh !important;
+        gap: 0.8rem !important;
+        max-width: 100% !important;
       }
       #center-img {
-        width: 320px !important;
-        height: 500px !important;
+        width: 240px !important;
+        height: 380px !important;
       }
       #left-img, #right-img {
-        width: 180px !important;
-        height: 300px !important;
+        width: 140px !important;
+        height: 240px !important;
       }
       .love-letter {
         padding: 3rem 2rem 3rem 5rem !important;
@@ -754,16 +1665,17 @@
         font-size: 1rem !important;
       }
       #carousel-container {
-        height: 50vh !important;
-        gap: 0.8rem !important;
+        height: auto !important;
+        gap: 0.6rem !important;
+        max-width: 100% !important;
+        flex-wrap: wrap;
       }
       #center-img {
-        width: 260px !important;
-        height: 400px !important;
+        width: 180px !important;
+        height: 280px !important;
       }
       #left-img, #right-img {
-        width: 140px !important;
-        height: 230px !important;
+        display: none !important;
       }
       .love-letter {
         padding: 2.5rem 1.5rem 2.5rem 4rem !important;
@@ -807,40 +1719,97 @@
       #dress-code-carousel {
         flex-direction: column !important;
         height: auto !important;
-        gap: 2rem !important;
+        gap: 1.5rem !important;
       }
       #dress-code-carousel > div {
         width: 100% !important;
+        max-width: 100% !important;
+      }
+      #dress-code-carousel > div > div {
+        height: 300px !important;
       }
       #dress-code-carousel h3 {
-        font-size: 1.5rem !important;
+        font-size: 1.4rem !important;
       }
       #dress-code-carousel .donation-btn {
-        font-size: 1rem !important;
-        padding: 0.7rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        padding: 0.6rem 1.2rem !important;
       }
     }
 
     /* Portrait orientation (9:16 aspect ratio) - Mobile */
     @media (max-width: 768px) and (orientation: portrait) {
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      section {
+        height: auto;
+        min-height: auto;
+        padding: 1.2rem 0.8rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      /* Title section stays full screen in all portrait modes */
+      #title-section {
+        height: 100vh;
+        min-height: 100vh;
+        padding: 3rem 0.8rem;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+      }
+      .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+        text-align: center;
+      }
       #dress-code-carousel {
         flex-direction: column;
         height: auto !important;
-        gap: 2.5rem;
+        gap: 1.5rem;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
       }
       #dress-code-carousel > div {
         width: 100%;
-        max-width: 400px;
+        max-width: 100%;
+        margin: 0 auto;
       }
       #dress-code-carousel > div > div {
-        height: 450px !important;
+        height: 300px !important;
       }
       .donation-board {
         width: 92vw !important;
+        max-width: 100% !important;
+        margin: 0.6rem auto !important;
       }
       .countdown-card {
         width: 95vw !important;
-        max-width: 500px !important;
+        max-width: 100% !important;
+        margin: 0 auto 0.8rem auto !important;
+      }
+      #carousel-container {
+        height: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+      }
+      #center-img {
+        width: 180px !important;
+        height: 280px !important;
+      }
+      #left-img, #right-img {
+        display: none !important;
+      }
+      /* Center align all cards and content */
+      .card, .invitation-card, .text-card {
+        width: 90vw !important;
+        max-width: 100% !important;
+        margin: 0.8rem auto !important;
       }
     }
 
@@ -925,6 +1894,19 @@
       pointer-events: none;
       z-index: 2;
     }
+
+    /* Reduce fade effect on mobile */
+    @media (max-width: 768px) and (orientation: portrait) {
+      .section-fade::after {
+        height: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-fade::after {
+        height: 40px;
+      }
+    }
     /* Buttons & Links */
     a, .btn {
       color: var(--light-main) !important;
@@ -940,6 +1922,31 @@
       border: none;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Responsive button sizing */
+    @media (max-width: 1023px) and (min-width: 768px) {
+      a, .btn {
+        margin-top: 0.4em;
+      }
+    }
+
+    @media (max-width: 767px) and (min-width: 481px) {
+      a, .btn {
+        font-size: 1rem;
+        padding: 0.6em 1.2em;
+        margin-top: 0.3em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      a, .btn {
+        font-size: 0.95rem;
+        padding: 0.5em 1em;
+        margin-top: 0.2em;
+      }
     }
     a:hover, .btn:hover {
       background: #99204a;
@@ -988,9 +1995,9 @@
   <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
   <h1 class="section-title">Nossa História</h1>
   <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 60vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease;">
-    <img id="left-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-    <img id="center-img" class="carousel-center" style="width: 400px; height: 600px; object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
-    <img id="right-img" style="width: 280px; height: 450px; object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    <img id="left-img" style="object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+    <img id="center-img" class="carousel-center" style="object-fit: cover; object-position: center 20%; border-radius: 20px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.4); z-index: 2;" onclick="openFullscreen()">
+    <img id="right-img" style="object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
   </div>
   <button onclick="toggleLoveLetter()" class="btn" style="font-size: 1.2rem; padding: 0.8rem 2rem; margin-top: 2rem;">📖 Leia Nossa História de Amor</button>
 </section>
@@ -1039,13 +2046,13 @@
   </div>
 
   <!-- Unified Venue & Dress Code Card -->
-  <div class="donation-board" style="max-width: 700px; width: 90%; padding: 2.5rem;">
+  <div class="donation-board" style="max-width: 700px; width: 75%; padding: 2.5rem;">
     <!-- Venue Header with Arch Icons -->
     <div style="text-align: center; margin-bottom: 2rem;">
       <h2 style="margin: 0; font-size: 2.8rem; color: var(--accent); font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Local da Cerimônia</h2>
       <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1rem 0;">
         <span style="font-size: 4rem;">💒</span>
-        <h3 style="margin: 0; font-size: 3.8rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
+        <h3 style="margin: 0; font-size: 3rem; color: var(--accent); font-family: 'Dancing Script', cursive;">Maison Garden</h3>
         <span style="font-size: 4rem;">💒</span>
       </div>
     </div>
