@@ -171,7 +171,8 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(251, 242, 226, 0.98);
+      background: rgba(251, 242, 226, 0.6);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       display: none;
       overflow-y: auto;
@@ -303,6 +304,21 @@
       animation: scaleIn 1s ease-out;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
       opacity: 1 !important;
+    }
+
+    /* Section-specific title colors */
+    #carousel-section .section-title {
+      color: #f0f0f0;
+      text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.4),
+        0 0 10px rgba(255,255,255,0.3);
+    }
+
+    #donations .section-title {
+      color: #ff1493;
+      text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.3),
+        0 0 15px rgba(255,20,147,0.4);
     }
 
     /* Responsive section title sizing */
@@ -571,7 +587,8 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
-      background: rgba(255,255,255,0.98);
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
       padding: 1.5rem 2rem;
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(59,39,82,0.3);
@@ -889,8 +906,8 @@
 
     /* Unified Card Styles - Larger and More Beautiful */
     .card, .donation-board, .invitation-card, .text-card, .countdown-card {
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
       border-radius: 1.5rem;
       box-shadow: 0 6px 24px rgba(59,39,82,0.12);
       border: 2px solid #f7e6ee;
@@ -1188,7 +1205,8 @@
       min-width: 360px;
       max-width: 450px;
       width: 100%;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
       border-radius: 1.5rem;
       box-shadow: 0 6px 24px rgba(59,39,82,0.12);
       border: 2px solid #f7e6ee;
@@ -1341,10 +1359,46 @@
     #center-img {
       width: 400px;
       height: 600px;
+      max-height: 70vh;
     }
     #left-img, #right-img {
       width: 280px;
       height: 450px;
+      max-height: 55vh;
+    }
+
+    /* Smart landscape orientation constraints for carousel images */
+    @media (orientation: landscape) {
+      #carousel-container {
+        height: 70vh;
+      }
+      #center-img {
+        max-height: 65vh;
+        height: auto;
+        width: auto;
+        max-width: 450px;
+      }
+      #left-img, #right-img {
+        max-height: 50vh;
+        height: auto;
+        width: auto;
+        max-width: 300px;
+      }
+    }
+
+    /* Specific fix for narrow landscape screens (like 932x430) */
+    @media (orientation: landscape) and (max-height: 500px) {
+      #carousel-container {
+        height: 85vh !important;
+      }
+      #center-img {
+        max-height: 75vh !important;
+        max-width: 350px !important;
+      }
+      #left-img, #right-img {
+        max-height: 60vh !important;
+        max-width: 220px !important;
+      }
     }
 
     /* Large Tablets and Small Desktops (1024px - 1200px) */
@@ -1549,7 +1603,7 @@
       }
       /* Dress code carousel for landscape */
       #dress-code-carousel {
-        height: 60vh !important;
+        height: 90vh !important;
         gap: 2rem !important;
         flex-direction: row !important;
       }
@@ -1889,22 +1943,59 @@
     .section-fade::after {
       content: "";
       position: absolute;
-      bottom: 0; left: 0; width: 100%; height: 120px;
-      background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,1) 100%);
+      bottom: 0; left: 0; width: 100%; height: 80px;
+      background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.85) 100%);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* Reduce fade effect on mobile */
-    @media (max-width: 768px) and (orientation: portrait) {
+    /* Adaptive gradient for different viewports and orientations */
+
+    /* Portrait orientation - more subtle gradient */
+    @media (orientation: portrait) {
       .section-fade::after {
         height: 60px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.75) 100%);
       }
     }
 
-    @media (max-width: 480px) {
+    /* Landscape orientation - very subtle gradient */
+    @media (orientation: landscape) {
+      .section-fade::after {
+        height: 50px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.5) 100%);
+      }
+    }
+
+    /* Short landscape screens (like 896x414) - minimal gradient */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .section-fade::after {
+        height: 30px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.3) 100%);
+      }
+    }
+
+    /* Very short landscape screens - almost invisible */
+    @media (orientation: landscape) and (max-height: 450px) {
+      .section-fade::after {
+        height: 20px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.2) 100%);
+      }
+    }
+
+    /* Tall portrait screens - can handle more gradient */
+    @media (orientation: portrait) and (min-height: 800px) {
+      .section-fade::after {
+        height: 80px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.8) 100%);
+      }
+    }
+
+    /* Small mobile portrait */
+    @media (max-width: 480px) and (orientation: portrait) {
       .section-fade::after {
         height: 40px;
+        background: linear-gradient(to bottom, rgba(251,242,226,0) 0%, rgba(251,242,226,0.6) 100%);
       }
     }
     /* Buttons & Links */
@@ -1984,7 +2075,7 @@
      SECTION 1: TITLE SECTION
      ======================================== -->
 <section id="title-section" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/Title1.jpg');"></div>
+  <div class="background-layer" style="background-image: url('assets/images/praia7.jpg');"></div>
   <h1 class="couple-names">Elaine <span class="name-separator">&</span> Filipe</h1>
 </section>
 
@@ -1992,7 +2083,7 @@
      SECTION 2: CAROUSEL (with Love Letter Overlay)
      ======================================== -->
 <section id="carousel-section" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec1.png');"></div>
+  <div class="background-layer" style="background-image: url('assets/images/praia13.jpg');"></div>
   <h1 class="section-title">Nossa História</h1>
   <div id="carousel-container" style="position: relative; width: 100%; max-width: 1200px; height: 60vh; display: flex; justify-content: center; align-items: center; gap: 2rem; transition: all 0.6s ease;">
     <img id="left-img" style="object-fit: cover; object-position: center 20%; filter: blur(3px) brightness(75%); border-radius: 15px; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
@@ -2006,7 +2097,7 @@
      SECTION 3: DONATIONS
      ======================================== -->
 <section id="donations" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/BackgroundSec2.png');"></div>
+  <div class="background-layer" style="background-image: url('assets/images/praia8.jpg');"></div>
   <h1 class="section-title" style="margin-bottom: 1.5rem;">Faça parte com sua ajuda ❤️</h1>
   <div class="donations-flexrow">
     <div class="donations-stack">
@@ -2035,14 +2126,14 @@
      SECTION 4: VENUE INFO (with Dress Code Overlay)
      ======================================== -->
 <section id="venue-info" class="section-fade">
-  <div class="background-layer" style="background-image: url('assets/images/Maison.jpg'); filter: blur(2px);"></div>
+  <div class="background-layer" style="background-image: url('assets/images/urca1.jpg'); filter: blur(2px);"></div>
   <h1 class="section-title">Cerimônia e Recepção</h1>
   <!-- Countdown Card - Compact -->
   <div class="countdown-card" style="padding: 0.5rem 2rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
     <span class="countdown-label">Faltam</span>
     <span id="days" class="countdown-value">0</span><span class="countdown-label">Dias e</span>
     <span id="hours" class="countdown-value">0</span><span class="countdown-label">Horas</span>
-    <a href="https://forms.gle/RSVPFormExample" target="_blank" class="donation-btn" style="margin: 0; padding: 0.8rem 1.8rem; font-size: 1.1rem;">Confirme sua presença AQUI</a>
+    <a href="https://forms.gle/AVQYKA4ZcxoYM3PU8" target="_blank" class="donation-btn" style="margin: 0; padding: 0.8rem 1.8rem; font-size: 1.1rem;">Confirme sua presença AQUI</a>
   </div>
 
   <!-- Unified Venue & Dress Code Card -->
@@ -2097,8 +2188,8 @@
   <div class="overlay-content">
     <button class="overlay-close" onclick="toggleDressCode()">×</button>
     <div style="width: 100%; max-width: 1200px; padding: 2rem;">
-      <h1 class="section-title" style="margin-top: 2rem;">Dress Code</h1>
-      <h2 style="margin-top:0; margin-bottom:3rem; font-size:2.5rem; color: var(--accent); text-align: center;">👔 Esporte Fino 👗</h2>
+      <h1 class="section-title" style="margin-top: 1rem;">Dress Code</h1>
+      <h2 style="margin-top:0; margin-bottom:1rem; font-size:2.5rem; color: var(--accent); text-align: center;">👔 Esporte Fino 👗</h2>
 
       <!-- Dress Code Carousel Container -->
       <div id="dress-code-carousel" style="position: relative; width: 100%; max-width: 1000px; height: 60vh; display: flex; justify-content: center; align-items: stretch; gap: 3rem; transition: all 0.6s ease; margin: 0 auto;">
@@ -2135,7 +2226,7 @@
 
 <script>
   // Improved Carousel with Smoother Transitions
-  const images = ["Pose5.jpg", "Pose1.jpg", "Pose3.jpg", "Pose7.jpg","Pose6.jpg","Pose2.jpg"];
+  const images = ["Pose5.jpg", "praia1.jpg", "Pose1.jpg","praia3.jpg", "Pose3.jpg","praia5.jpg", "Pose7.jpg","praia9.jpg","Pose6.jpg","praia17(1).jpg","Pose2.jpg", "praia12.jpg", "urca2.jpg"];
   let index = 0;
   let autoPlayInterval = null;
   let isTransitioning = false;
